@@ -1,0 +1,121 @@
+﻿@model RPPP_WebApp.ViewModels.ZzadaciViewModel
+
+@{
+	ViewBag.Title = "Zadaci";
+}
+
+<h2>Lista zadataka</h2>
+
+<a asp-action="Create" class="btn btn-primary">Unos novog zadatka</a>
+
+
+<pager page-info="@Model.PagingInfo" page-action="Index" page-titles="Stranica" class="float-end"></pager>
+
+<div class="text-center">
+	<div class="btn-group">
+		<a asp-controller="ZReport" asp-action="ZzadaciExcel" class="btn btn-secondary">Excel</a>
+		<a asp-controller="ZReport" asp-action="ZadaciPdf" class="btn btn-primary">PDF</a>
+	</div>
+</div>
+
+<div class="text-danger statusnaPoruka">
+	@if (TempData.ContainsKey("StatusMessage"))
+	{
+		<div class="alert alert-success">
+			@TempData["StatusMessage"]
+		</div>
+	}
+</div>
+
+
+<table class="table table-sm table-striped table-hover">
+	<thead>
+		<tr>
+			<td class="text-center">
+				<a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+					Id zadatka
+				</a>
+			</td>
+			<td class="text-center">
+				<a asp-route-sort="2" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 2 ? !Model.PagingInfo.Ascending : true)">
+					Opis zadatka
+				</a>
+			</td>
+			<td class="text-center">
+				<a asp-route-sort="3" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 3 ? !Model.PagingInfo.Ascending : true)">
+					Status zadatka
+				</a>
+			</td>
+			<td class="text-center">
+				<a asp-route-sort="4" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 4 ? !Model.PagingInfo.Ascending : true)">
+					Zahtjev
+				</a>
+			</td>
+			<td class="text-center">
+				Broj suradnika
+			</td>
+			<td class="text-center">
+			</td>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.Zadaci)
+		{
+			<tr>
+				<td class="text-center">
+					@item.ZadatakId
+				</td>
+				<td class="text-center">
+					@item.Opis
+				</td>
+				<td class="text-center">
+					@(item.StatusZadatka?.NazivStatusaZadatka != null ? item.StatusZadatka.NazivStatusaZadatka : "Nema statusa")
+				</td>
+				<td class="text-center">
+					@(item.Zahtjev?.NazivZahtjeva != null ? item.Zahtjev.NazivZahtjeva : "Zahtjev nije definiran")
+				</td>
+				<td class="text-center">
+					@(item.ZadatakSuradniks.Count)
+				</td>
+
+				<td class="btn-group">
+					<a asp-action="Details" asp-controller="Zzadatak" asp-route-id="@item.ZadatakId" class="btn btn-primary"><i class="fa fa-edit">Detalji</i></a>
+					<a asp-action="Edit" asp-route-id="@item.ZadatakId" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-sort="@Model.PagingInfo.Sort"
+					   asp-route-ascending="@Model.PagingInfo.Ascending"
+					   class="btn btn-secondary" title="Ažuriraj"><i class="fas fa-edit">Ažuriraj</i></a>
+					<form asp-action="Delete" method="post"
+						  asp-route-page="@Model.PagingInfo.CurrentPage"
+						  asp-route-sort="@Model.PagingInfo.Sort"
+						  asp-route-ascending="@Model.PagingInfo.Ascending"
+						  class="btn btn-danger delete">
+						<input type="hidden" name="id" value="@item.ZadatakId">
+						<button type="submit" title="Izbriši" style="all: unset;">
+							<i class="fa fa-edit">Izbriši</i>
+						</button>
+					</form>
+				</td>
+				<td class="btn-group">
+				</td>
+
+			</tr>
+
+		}
+	</tbody>
+</table>
+
+<div class="text-center">
+	@for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+	{
+		<a asp-route-page="@i" asp-route-sort="@Model.PagingInfo.Sort" asp-route-ascending="@Model.PagingInfo.Ascending">
+			<button class="btn btn-sm @(i == Model.PagingInfo.CurrentPage ? "btn-primary" : "btn-secondary")">@i</button>
+		</a>
+	}
+</div>
+
+<form method="post" enctype="multipart/form-data" asp-controller="ZReport" asp-action="UploadExcel">
+	<input type="file" name="excelFile" />
+	<button type="submit" class="btn btn-sm btn-light">Dodaj zadatke iz Excel datoteke</button>
+</form>
+
+@section scripts {
+	<script src="~/js/pager.js" asp-append-version="true"></script>
+}

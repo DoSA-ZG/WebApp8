@@ -1,0 +1,25 @@
+@model RPPP_WebApp.Models.Posao
+
+ <tr hx-target="this" hx-swap="outerHTML">
+                <th scope="row">@Model.PosaoId </th>
+
+                <td>
+                    @Model.Opis
+                </td>
+                <td>
+                    @Model.Projekt?.NazivProjekta
+                </td>
+                <td>
+                    @Model.VrstaPosla?.NazivVrste
+                </td>
+                <td>
+                   
+                    
+                   <a hx-get = '@Url.Action("EditRow", "Posao", new {id = Model.PosaoId})'
+                        class="btn btn-primary mt-1" title="Ažuriraj" style="background-color: #0d6efd !important;" onclick="dodajAutocomplete()"> Ažuriraj </a>
+
+                            <button  hx-confirm="Obrisati posao?" 
+                                 hx-delete='@Url.Action("DeleteDynamic", "Posao", new { PosaoId = Model.PosaoId })' title="Obriši" class="btn btn-danger mt-1" style="background-color: #dc3545 !important;"> Izbriši </button>
+                 
+                </td>
+            </tr>

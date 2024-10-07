@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ZsuradnikViewModel>
+
+<table class="table table-striped" id="table-suradnici">
+    <thead>
+        <tr>
+            @{
+                string[] nazivi = { "Ime", "Prezime", "Email", "Broj mobitela" };
+                for (int i = 0; i < nazivi.Length; i++)
+                {
+                    <th class="text-center">
+                        @nazivi[i]
+                    </th>
+                }
+            }
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var suradnik in Model)
+        {
+            <tr>
+                <td class="text-left col-sm-4">
+                    <input type="hidden" name="zsuradnikViewModels.Index" value="@suradnik.Suradnik.SuradnikId" />
+                    <input type="text" hidden name="zsuradnikViewModels[@suradnik.Suradnik.SuradnikId].Suradnik.SuradnikId" value="@suradnik.Suradnik.SuradnikId" />
+                    <input type="text" name="zsuradnikViewModels[@suradnik.Suradnik.SuradnikId].Suradnik.Ime" value="@suradnik.Suradnik.Ime" />
+                </td>
+                <td class="text-center col-sm-1">
+                    <input type="text" name="zsuradnikViewModels[@suradnik.Suradnik.SuradnikId].Suradnik.Prezime" value="@suradnik.Suradnik.Prezime" />
+                </td>
+                <td class="text-center col-sm-1">
+                    <input type="text" name="zsuradnikViewModels[@suradnik.Suradnik.SuradnikId].Suradnik.Email" value="@suradnik.Suradnik.Email" />
+                </td>
+                <td class="text-right col-sm-3">
+                    <input type="text" name="zsuradnikViewModels[@suradnik.Suradnik.SuradnikId].Suradnik.BrojMobitela" value="@suradnik.Suradnik.BrojMobitela" />
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-danger deleterow" title="Izbaci"><i class="fa fa-minus"></i>Izbaci</button>
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-danger" id="deleteButton" type="button" title="Izbriši" data-suradnik-id="@suradnik.Suradnik.SuradnikId"><i class="fa fa-minus"></i>Izbriši</button>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td>
+                <input id="suradnik-SuradnikId" data-autocomplete-placeholder="zsuradnik" type="hidden" readonly="readonly" />
+                <input id="suradnik-Ime" type="text" data-autocomplete="zsuradnik" />
+            </td>
+            <td class="text-center col-sm-1">
+                <input id="suradnik-Prezime" type="text" data-autocomplete-placeholder-Prezime="zsuradnik"/>
+            </td>
+            <td class="text-center col-sm-1">
+                <input id="suradnik-Email" type="text" data-autocomplete-placeholder-Email="zsuradnik" />
+            </td>
+            <td class="text-right col-sm-2">
+                <input id="suradnik-BrojMobitela" type="text" data-autocomplete-placeholder-BrojMobitela="zsuradnik"/>
+            </td>
+            <td class="text-left" colspan="2">
+                <button id="suradnik-dodaj" type="button" class="btn btn-sm btn-secondary" title="Dodaj"><i class="fas fa-plus">Dodaj postojećeg</i></button>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+

@@ -1,0 +1,183 @@
+﻿@model RPPP_WebApp.ViewModels.ProjektDokumentacijaViewModel
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+
+<h2 class="my-3">Detalji Projekta</h2>
+
+
+
+<a asp-controller="Projekt" asp-action="Index" class="btn btn-primary">Početna</a>
+
+
+<form asp-controller="Projekt" asp-action="SaveEdit" id="projektForm" method="post">
+
+    <div class="form-group">
+        <label asp-for="ProjektData.ProjektId"></label>
+        <div>
+            <input asp-for="ProjektData.ProjektId" type="hidden"/>
+            @Model.ProjektData.ProjektId
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProjektData.OpisProjekta"></label>
+        <div class="form-control">
+            <input asp-for="ProjektData.OpisProjekta" class="form-control"  />
+            <span asp-validation-for="@Model.ProjektData.OpisProjekta" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProjektData.NazivProjekta"></label>
+        <div class="form-control">
+            <input asp-for="ProjektData.NazivProjekta" class="form-control"  />
+            <span asp-validation-for="@Model.ProjektData.NazivProjekta" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProjektData.PlaniraniPocetak"></label>
+        <div class="form-control">
+            <input asp-for="ProjektData.PlaniraniPocetak" class="form-control" />
+            <span asp-validation-for="@Model.ProjektData.PlaniraniPocetak" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProjektData.StvarniPocetak"></label>
+        <div class="form-control">
+            <input asp-for="ProjektData.StvarniPocetak" class="form-control" />
+            <span asp-validation-for="@Model.ProjektData.StvarniPocetak" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProjektData.PlaniraniZavrsetak"></label>
+        <div class="form-control">
+            <input asp-for="ProjektData.PlaniraniZavrsetak" class="form-control"  />
+            <span asp-validation-for="@Model.ProjektData.PlaniraniZavrsetak" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProjektData.StvarniZavrsetak"></label>
+        <div class="form-control">
+            <input asp-for="ProjektData.StvarniZavrsetak" class="form-control"/>
+            <span asp-validation-for="@Model.ProjektData.StvarniZavrsetak" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProjektData.VrstaProjekta"></label>
+        <div>
+            @Html.DropDownListFor(model => model.ProjektData.VrstaProjektaId, new SelectList(ViewBag.VrsteProjekta, "VrstaProjektaId", "NazivVrsteProjekta"), "Odaberite vrstu projekta", new { @class = "form-control"})
+            <span asp-validation-for="ProjektData.VrstaProjektaId" class="text-danger"></span>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" id="saveButton">Spremi promjene</button>
+
+</form>
+
+
+
+
+
+<h2 class="my-3">Dokumentacija</h2>
+<hr />
+
+<table class="table table-striped" id="tableTransakcije">
+    <thead>
+        <tr>
+            <th scope="col">Projekt ID</th>
+            <th scope="col">ID</th>
+            <th scope="col">Naziv Dokumentacije</th>
+            <th scope="col">Vrsta Dokumentacije</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doc in Model.DokumentacijaData)
+        {
+                
+
+                <tr>
+                
+                    <input asp-for="@doc.ProjektId" type="hidden" />
+                <td>
+                        @doc.ProjektId
+                </td>
+
+                    <input asp-for="@doc.DokumentacijaId" type="hidden" />
+
+                <td>
+                        @doc.DokumentacijaId
+                </td>
+                <td>
+                    <input asp-for="@doc.NazivDokumentacije" />
+                </td>
+                <td>
+                        @{
+                            var selectedVrsta = Model.VrstaDokumentacije.FirstOrDefault(v => v.VrstaDokumentacijeId == doc.VrstaDokumentacijeId);
+                        }
+                        @Html.DropDownListFor(model => doc.VrstaDokumentacijeId, new SelectList(ViewBag.VrsteDokumentacije, "VrstaDokumentacijeId", "NazivVrsteDokumentacije", selectedVrsta?.VrstaDokumentacijeId), "Odaberite vrstu dokumentacije", new { @class = "form-control" })
+                    <span asp-validation-for="@doc.VrstaDokumentacijeId" class="text-danger"></span>
+                </td>
+                <td>
+                    
+                    
+                </td>
+                
+                <td>
+                    <form asp-action="DeleteDoc" asp-route-id="@doc.DokumentacijaId" method="post" id="obrisiForm-@doc.DokumentacijaId" style="display: inline-block;">
+                        <input type="hidden" name="id" value="@doc.DokumentacijaId" />
+                        <button form="obrisiForm-@doc.DokumentacijaId" type="submit" title="Obriši" class="delete btn btn-danger">Izbriši</button>
+                    </form>
+                </td>
+            </tr>
+        }
+     
+    </tbody>
+</table>
+
+<hr />
+
+<h2>Dodaj novu dokumentaciju u projekt</h2>
+
+<div id="addDokumentacijaTemplate" >
+    <form asp-controller="Projekt" asp-action="CreateDokumentacija" method="post" id="addDokumentacija" class="dokumentacija-form">
+        <input asp-for="ProjektData.ProjektId" type="hidden" />
+        <table class="table table-striped" id="tableTransakcije">
+
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label asp-for="NewDokumentacija.NazivDokumentacije"></label>
+                        <div>
+                            <span asp-validation-for="NewDokumentacija.NazivDokumentacije" class="text-danger"></span>
+                        </div>
+                        <input asp-for="NewDokumentacija.NazivDokumentacije" class="form-control" />
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label asp-for="NewDokumentacija.VrstaDokumentacijeId"></label>
+                        <div>
+                            <span asp-validation-for="NewDokumentacija.VrstaDokumentacijeId" class="text-danger"></span>
+                        </div>
+                        @Html.DropDownListFor(model => model.NewDokumentacija.VrstaDokumentacijeId, new SelectList(ViewBag.VrsteDokumentacije, "VrstaDokumentacijeId", "NazivVrsteDokumentacije"), "Odaberite vrstu dokumentacije", new { @class = "form-control" })
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <button form="addDokumentacija" type="submit" class="btn btn-primary" title="Dodaj">Dodaj</button>
+    </form>
+</div>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>

@@ -1,0 +1,54 @@
+@model IEnumerable<RPPP_WebApp.Models.Posao> 
+
+@{
+    ViewData["Title"] = "Poslovi";
+}
+
+<h2 class="my-3">Poslovi</h2>
+
+<a class = "btn btn-primary mb-3" asp-controller="Posao" asp-action="Create">Dodaj Novi</a>
+<table class="table table-striped" id = "tablePoslovi">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Opis</th>
+            <th scope="col">Projekt</th>
+            <th scope="col">Vrsta Posla</th>
+            <th scope = "col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var posao in Model) {
+            <tr>
+                <th scope="row">@posao.PosaoId </th>
+                <td> @posao.Opis </td>
+                <td> @posao.Projekt.NazivProjekta </td>
+                <td> @posao.VrstaPosla.NazivVrste </td>
+                <td>
+                   <a asp-action="Edit"
+                        asp-route-id="@posao.PosaoId"
+                        class="btn btn-primary" title="Ažuriraj"> Ažuriraj </a>
+
+                    <form asp-action="Delete" method="post" style="display: inline-block;">
+                            <input type="hidden" name="PosaoId"
+                            value="@posao.PosaoId" />
+                            <button type="submit" title="Obriši" class="delete btn btn-danger"> Izbriši </button>
+                    </form> 
+                </td>
+            </tr> 
+        }
+    </tbody>
+</table>
+
+@section styles{
+<link rel="stylesheet"
+href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"/>
+}
+@section scripts{
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script>
+$(document).ready(function(){
+$('#tablePoslovi').DataTable();
+});
+</script>
+}

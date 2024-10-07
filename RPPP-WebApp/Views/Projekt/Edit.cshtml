@@ -1,0 +1,77 @@
+﻿@model RPPP_WebApp.Models.Projekt
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+<h2 class="my-3">Ažuriraj Projekt</h2>
+
+<form asp-action="Edit" method="post" id="pform">
+
+    <div class="form-group">
+        <label asp-for="ProjektId"></label>
+        <div>
+            <input asp-for="ProjektId" type="hidden" />
+            @Model.ProjektId
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="OpisProjekta"></label>
+        <div class="form-control">
+            <input asp-for="OpisProjekta" class="form-control" />
+            <span asp-validation-for="OpisProjekta" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NazivProjekta"></label>
+        <div class="form-control">
+            <input asp-for="NazivProjekta" class="form-control" />
+            <span asp-validation-for="NazivProjekta" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PlaniraniPocetak"></label>
+        <div class="form-control">
+            <input asp-for="PlaniraniPocetak" class="form-control" />
+            <span asp-validation-for="PlaniraniPocetak" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StvarniPocetak"></label>
+        <div class="form-control">
+            <input asp-for="StvarniPocetak" class="form-control" />
+            <span asp-validation-for="StvarniPocetak" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PlaniraniZavrsetak"></label>
+        <div class="form-control">
+            <input asp-for="PlaniraniZavrsetak" class="form-control" />
+            <span asp-validation-for="PlaniraniZavrsetak" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StvarniZavrsetak"></label>
+        <div class="form-control">
+            <input asp-for="StvarniZavrsetak" class="form-control" />
+            <span asp-validation-for="StvarniZavrsetak" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="VrstaProjekta"></label>
+        <div>
+            @Html.DropDownListFor(model => model.VrstaProjektaId, new SelectList(ViewBag.VrsteProjekta, "VrstaProjektaId", "NazivVrsteProjekta"), "Odaberite vrstu projekta", new { @class = "form-control" })
+            <span asp-validation-for="VrstaProjektaId" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" form="pform" class="btn btn-primary">Spremi promjene</button>
+        <a asp-action="Index" class="btn btn-default">Odustani</a>
+    </div>
+
+</form>

@@ -1,0 +1,77 @@
+﻿@model RPPP_WebApp.ViewModels.ZzadatakViewModel
+
+@{
+    ViewBag.Title = "Ažuiriranje zadatka";
+}
+
+<h3 class="my-3">Ažuriraj zadatak</h3>
+
+
+<div class="container">
+    <form asp-route-id="@Model.zadatak.ZadatakId"
+          asp-route-page="@ViewBag.Page"
+          asp-route-sort="@ViewBag.Sort"
+          asp-route-ascending="@ViewBag.Ascending"
+          method="post">
+        <input type="hidden" asp-for="zadatak.ZadatakId" />
+        <div asp-validation-summary="All"></div>
+
+        <label asp-for="zadatak.Opis" class="col-sm-1 col-form-label" hidden></label>
+        <div class="form-text">Opis: </div>
+        <div class="form-group">
+            <input asp-for="zadatak.Opis" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="zadatak.StatusZadatkaId" hidden>Status zadatka</label>
+            <div class="form-text">Status zadatka: </div>
+            <select class="form-select" asp-validation-for="StatusZadatkaId" asp-for="zadatak.StatusZadatkaId" asp-items="ViewBag.Statusi"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="zadatak.ZahtjevId" hidden>Zahtjev</label>
+            <div class="form-text">Zahtjev: </div>
+            <select class="form-select" asp-validation-for="ZahtjevId" asp-for="zadatak.ZahtjevId" asp-items="ViewBag.Zahtjevi"></select>
+        </div>
+        <hr />
+
+        <h2>Suradnici: </h2>
+
+        <div class="col-sm-10">
+            <partial name="Suradnici" model="Model.zsuradnikViewModels" />
+        </div>
+        <div class="col-sm-2">
+            <button id="save" type="submit" class="btn btn-sm btn-primary save" title="Spremi"><i class="fas fa-save">Spremi</i></button>
+            <a class="btn btn-sm btn-secondary cancel"
+               asp-action="Edit"
+               asp-route-id="@Model.zadatak.ZadatakId"
+               asp-route-page="@ViewBag.Page"
+               asp-route-sort="@ViewBag.Sort"
+               asp-route-ascending="@ViewBag.Ascending"
+               title="Osvježi">
+                <i class="fas fa-sync-alt">Osvježi</i>
+            </a>
+            <a class="btn btn-sm btn-danger cancel"
+               asp-action="Index"
+               asp-route-page="@ViewBag.Page"
+               asp-route-sort="@ViewBag.Sort"
+               asp-route-ascending="@ViewBag.Ascending"
+               title="Odustani">
+                <i class="fas fa-undo-alt">Odustani</i>
+            </a>
+        </div>
+    </form>
+</div>
+<div class="text-center">
+    <button id="newSuradnik" class="btn btn-primary" data-zadatak-id="@Model.zadatak.ZadatakId">Stvori novog suradnika</button>
+</div>
+<partial name="NoviSuradnikTemplate" />
+
+@section styles{
+    <link rel="stylesheet" href="~/lib/jqueryui/themes/base/jquery-ui.css" />
+}
+@section scripts{
+    <partial name="IncludeValidation" />
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/js/zzadaci.js" asp-append-version="true"></script>
+    <script src="~/js/aautocomplete.js" asp-append-version="true"></script>
+}

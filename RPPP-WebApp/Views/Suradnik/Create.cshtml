@@ -1,0 +1,35 @@
+@model RPPP_WebApp.Models.Suradnik
+
+@{
+    ViewData["Title"] = "Dodaj suradnika";
+}
+
+<h3 class ="my-3">Dodaj novog suradnika </h3>
+<form asp-action="CreatePost" method="post">
+<div asp-validation-summary="ModelOnly"></div>
+
+<div class ="form-group">
+    <label asp-for = "Ime"></label>
+    <div><span asp-validation-for="Ime" class =" text-danger"></span></div>
+    <input asp-for="Ime" class="form-control" />
+</div>
+<div class ="form-group mt-2">
+    <label asp-for = "Prezime"></label>
+    <div><span asp-validation-for="Prezime" class =" text-danger"></span></div>
+    <input asp-for="Prezime" class="form-control" />
+</div>
+<div class ="form-group mt-2">
+    <label asp-for = "Email"></label>
+    <div><span asp-validation-for="Email" class =" text-danger"></span></div>
+    <input asp-for="Email" class="form-control" />
+</div>
+<div class ="form-group mt-2">
+    <label asp-for = "BrojMobitela"></label>
+    <div><span asp-validation-for="BrojMobitela" class =" text-danger"></span></div>
+    <input asp-for="BrojMobitela" class="form-control" />
+</div>
+
+<button class="btn btn-primary mt-3" type="submit">Dodaj</button>
+<a asp-action="Index" class="btn mt-3 btn-secondary">Odustani</a>
+
+</form>

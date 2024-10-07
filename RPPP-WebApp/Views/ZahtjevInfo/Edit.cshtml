@@ -1,0 +1,102 @@
+﻿@model ZahtjevInfoViewModel
+
+@{
+	ViewData["Title"] = "Izmjena zahtjeva";
+}
+
+<partial name="PreviousNext" />
+
+<hr />
+
+
+<div class="container">
+  <form id="zahtjev_form" method="post" asp-action="Edit"
+        asp-route-page="@ViewBag.Page"
+        asp-route-sort="@ViewBag.Sort"
+        asp-route-ascending="@ViewBag.Ascending"
+        asp-route-filter="@ViewBag.Filter"
+        asp-route-position="@ViewBag.Position">
+    <input type="hidden" asp-for="ZahtjevId" />
+    <div asp-validation-summary="All" class="form-group row"></div>
+
+      <div class="form-group row">
+          <label asp-for="Oznaka" class="col-sm-2 col-form-label"></label>
+          <input asp-for="Oznaka" class="form-control"/>
+      </div>
+
+      <div class="form-group row">
+          <label asp-for="NazivZahtjeva" class="col-sm-2 col-form-label">Naziv zahtjeva</label>
+          <input asp-for="NazivZahtjeva" class="form-control"/>
+      </div>
+
+        <div class="form-group row">
+
+            <label asp-for="ProjektId" class="col-sm-1 col-form-label">Naziv projekta</label>
+            <div class="col-sm-1">
+                <input asp-for="ProjektId" readonly="readonly" class="form-control" data-autocomplete-placeholder="projekt" />
+            </div>
+            <input class="form-control" data-autocomplete="projekt" asp-for="@Model.NazivProjekta" />
+        </div>
+
+        <div class="form-group row">
+
+            <label asp-for="VrstaZahtjevaId" class="col-sm-1 col-form-label">Naziv vrste zahtjeva</label>
+            <div class="col-sm-1">
+                <input asp-for="VrstaZahtjevaId" readonly="readonly" class="form-control" data-autocomplete-placeholder="VrstaZahtjeva" />
+            </div>
+            <input class="form-control" data-autocomplete="VrstaZahtjeva" asp-for="@Model.NazivVrsteZahtjeva" />
+            
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="Prioritet" class="col-sm-2 col-form-label"></label>
+            <input asp-for="Prioritet" class="form-control"/>
+        </div>
+
+      <div class="col-sm-2">
+        <button id="save" type="submit" class="btn btn-sm btn-primary save" title="Spremi">Spremi</button>
+        <a class="btn btn-sm btn-primary cancel"
+           asp-action="Edit"
+           asp-route-id="@Model.ZahtjevId"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           asp-route-filter="@ViewBag.Filter"
+           asp-route-position="@ViewBag.Position"
+           title="Osvježi">
+           Osvježi
+        </a>
+        <a class="btn btn-sm btn-primary cancel"
+           asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           asp-route-filter="@ViewBag.Filter"
+           title="Odustani">
+           Odustani
+        </a>
+      </div>
+
+    
+    <div class="col-sm-10">
+        <partial name="Zadatci" model="Model.Zadatci" />
+    </div>
+  </form>
+</div>
+
+<partial name="NoviZadatakTemplate" />
+
+
+@section styles{
+          <link rel="stylesheet" href="~/lib/jqueryui/themes/base/jquery-ui.css" />
+}
+
+
+@section scripts{
+          <partial name="IncludeValidation" />
+          <script src="~/lib/jqueryui/jquery-ui.js"></script>
+          <script src="~/js/autocomplete.js" asp-append-version="true"></script>
+          <script src="~/js/zahtjevi.js" asp-append-version="true"></script>
+}
+
+

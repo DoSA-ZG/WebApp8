@@ -1,0 +1,73 @@
+﻿@model RPPP_WebApp.ViewModels.ZsuradnikViewModel
+
+@{
+    ViewBag.Title = "Ažuiriranje suradnika";
+}
+
+<h3 class="my-3">Ažuriraj suradnika</h3>
+
+
+<form asp-route-id="@Model.Suradnik.SuradnikId"
+      asp-route-page="@ViewBag.Page"
+      asp-route-sort="@ViewBag.Sort"
+      asp-route-ascending="@ViewBag.Ascending"
+      method="post">
+
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="Suradnik.Ime"></label>
+        <div><span asp-validation-for="Suradnik.Ime" class="text-danger"></span></div>
+        <input asp-for="Suradnik.Ime" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Suradnik.Prezime"></label>
+        <div><span asp-validation-for="Suradnik.Prezime" class="text-danger"></span></div>
+        <input asp-for="Suradnik.Prezime" class="form-control"></input>
+    </div>
+    <div class="form-group">
+        <label asp-for="Suradnik.Email"></label>
+        <div><span asp-validation-for="Suradnik.Email" class="text-danger"></span></div>
+        <input asp-for="Suradnik.Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Suradnik.BrojMobitela"></label>
+        <div><span asp-validation-for="Suradnik.BrojMobitela" class="text-danger"></span></div>
+        <input asp-for="Suradnik.BrojMobitela" class="form-control" />
+    </div>
+    <button id="infobtn" type="button" onclick="showInfo()" class="btn btn-secondary">Info</button>
+    <div id="info"></div>
+    <div class="form-group">
+        <label asp-for="SelectedZadaci">Zadaci</label>
+        <span asp-for="SelectedZadaci">
+            @foreach (var zadaci in Model.AvailableZadaci)
+            {
+                <div>
+                    <input type="checkbox" name="SelectedZadaci" value="@zadaci.ZadatakId" @(Model.SelectedZadaci.Contains(zadaci.ZadatakId) ? "checked" : "") />
+                    <label>@zadaci.Opis</label>
+                </div>
+            }
+        </span>
+        <span asp-validation-for="SelectedZadaci" class="text-danger"></span>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Spremi</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">Odustani</a>
+    </div>
+</form>
+
+<script>
+    function showInfo() {
+        let info = document.getElementById("info");
+        let btn = document.getElementById("infobtn");
+        info.innerHTML = "Zadatak i Suradnik imaju vezu N:N pa suradnik može imati više zadataka.";
+        btn.style.display = "none";
+    }
+</script>
+
+@section scripts {
+    <partial name="IncludeValidation" />
+}

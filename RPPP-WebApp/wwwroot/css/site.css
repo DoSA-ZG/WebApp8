@@ -1,0 +1,25 @@
+﻿main {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.logo-icon {
+  height: 30px;
+}
+
+.validation-summary-errors { font-weight: bold; color:#a94442;}
+.validation-summary-valid { display: none;}
+.input-validation-error{
+    border-color:red;
+}
+
+.toast {
+  font-size: 20px; /* Adjust the font size as needed */
+  padding: 16px; /* Adjust the padding as needed */
+  min-width: 1000px; /* Adjust the minimum width as needed */
+  position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}

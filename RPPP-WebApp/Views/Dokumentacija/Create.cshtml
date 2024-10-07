@@ -1,0 +1,40 @@
+﻿@using RPPP_WebApp.Models
+@model Dokumentacija
+
+<h3 class="my-3">Nova Dokumentacija</h3>
+<form asp-action="Create" method="post">
+
+	<div asp-validation-summary="ModelOnly"></div>
+
+	<div class="form-group">
+		<label asp-for="NazivDokumentacije"></label>
+		<div>
+			<span asp-validation-for="NazivDokumentacije" class="text-danger"></span>
+		</div>
+		<input asp-for="NazivDokumentacije" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="ProjektId"></label>
+		<div>
+			<span asp-validation-for="ProjektId" class="text-danger"></span>
+		</div>
+		<input asp-for="ProjektId" class="form-control">
+	</div>
+
+
+
+	<div class="form-group">
+		<label asp-for="VrstaDokumentacijeId"></label>
+		<div>
+			<span asp-validation-for="VrstaDokumentacijeId" class="text-danger"></span>
+		</div>
+		@Html.DropDownListFor(model => model.VrstaDokumentacijeId, new SelectList(ViewBag.VrsteDokumentacije, "VrstaDokumentacijeId", "NazivVrsteDokumentacije"), "Odaberite vrstu dokumentacije", new { @class = "form-control" })
+	</div>
+
+	<div class="text-left">
+		<button class="btn btn-primary" type="submit">Dodaj</button>
+		<a asp-action="Index" class="btn btn-default">Odustani</a>
+	</div>
+
+</form>

@@ -1,0 +1,70 @@
+﻿@model RPPP_WebApp.Models.Projekt
+
+<h3 class="my-3">Novi Projekt</h3>
+<form asp-action="Create" method="post">
+
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div class="form-group">
+        <label asp-for="NazivProjekta"></label>
+        <div>
+            <span asp-validation-for="NazivProjekta" class="text-danger"></span>
+        </div>
+        <input asp-for="NazivProjekta" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PlaniraniPocetak"></label>
+        <div>
+            <span asp-validation-for="PlaniraniPocetak" class="text-danger"></span>
+        </div>
+        <input asp-for="PlaniraniPocetak" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StvarniPocetak"></label>
+        <div>
+            <span asp-validation-for="StvarniPocetak" class="text-danger"></span>
+        </div>
+        <input asp-for="StvarniPocetak" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PlaniraniZavrsetak"></label>
+        <div>
+            <span asp-validation-for="PlaniraniZavrsetak" class="text-danger"></span>
+        </div>
+        <input asp-for="PlaniraniZavrsetak" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StvarniZavrsetak"></label>
+        <div>
+            <span asp-validation-for="StvarniZavrsetak" class="text-danger"></span>
+        </div>
+        <input asp-for="StvarniZavrsetak" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="OpisProjekta"></label>
+        <div>
+            <span asp-validation-for="OpisProjekta" class="text-danger"></span>
+        </div>
+        <input asp-for="OpisProjekta" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="VrstaProjekta"></label>
+        <div>
+            @Html.DropDownListFor(model => model.VrstaProjektaId, new SelectList(ViewBag.VrsteProjekta, "VrstaProjektaId", "NazivVrsteProjekta"), "Odaberite vrstu projekta", new { @class = "form-control" })
+            <span asp-validation-for="VrstaProjektaId" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="text-left">
+        <button class="btn btn-primary" type="submit">Dodaj</button>
+        <a asp-action="Index" class="btn btn-default">Odustani</a>
+    </div>
+
+</form>
+

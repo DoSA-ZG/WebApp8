@@ -1,0 +1,62 @@
+﻿@model ZsuradnikViewModel
+
+@{
+    ViewData["Title"] = "Create Suradnik";
+}
+
+<h2>Create Suradnik</h2>
+
+<form action="Create" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label for="Suradnik_Ime" class="control-label">Ime</label>
+        <input type="text" id="Suradnik_Ime" name="Suradnik.Ime" class="form-control" value="@Model?.Suradnik?.Ime" />
+        <span class="text-danger">@Html.ValidationMessageFor(model => model.Suradnik.Ime)</span>
+    </div>
+
+    <div class="form-group">
+        <label for="Suradnik_Prezime" class="control-label">Prezime</label>
+        <input type="text" id="Suradnik_Prezime" name="Suradnik.Prezime" class="form-control" value="@Model?.Suradnik?.Prezime" />
+        <span class="text-danger">@Html.ValidationMessageFor(model => model.Suradnik.Prezime)</span>
+    </div>
+
+    <div class="form-group">
+        <label for="Suradnik_Email" class="control-label">Email</label>
+        <input type="text" id="Suradnik_Email" name="Suradnik.Email" class="form-control" value="@Model?.Suradnik?.Email" />
+        <span class="text-danger">@Html.ValidationMessageFor(model => model.Suradnik.Email)</span>
+    </div>
+
+    <div class="form-group">
+        <label for="Suradnik_BrojMobitela" class="control-label">Broj Mobitela</label>
+        <input type="text" id="Suradnik_BrojMobitela" name="Suradnik.BrojMobitela" class="form-control" value="@Model?.Suradnik?.BrojMobitela" />
+        <span class="text-danger">@Html.ValidationMessageFor(model => model.Suradnik.BrojMobitela)</span>
+    </div>
+    <button id="infobtn" type="button" onclick="showInfo()" class="btn btn-secondary">Info</button>
+    <div id="info"></div>
+
+    <div class="form-group">
+        <label for="SelectedZadaci" class="control-label">Zadaci</label>
+        <select id="SelectedZadaci" name="SelectedZadaci" asp-items="@(Model.AvailableZadaci?.Select(z => new SelectListItem(z.Opis, z.ZadatakId.ToString(), Model.SelectedZadaci.Contains(z.ZadatakId))) ?? Enumerable.Empty<SelectListItem>())" class="form-control" multiple>
+        </select>
+        <span class="text-danger">@Html.ValidationMessageFor(model => model.SelectedZadaci)</span>
+    </div>
+
+
+
+
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+
+<script>
+    function showInfo() {
+        let info = document.getElementById("info");
+        let btn = document.getElementById("infobtn");
+        info.innerHTML = "Zadatak i Suradnik imaju vezu N:N pa suradnik može imati više zadataka.";
+        btn.style.display = "none";
+    }
+</script>

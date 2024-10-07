@@ -1,0 +1,1259 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RPPP-WebApp</name>
+    </assembly>
+    <members>
+        <member name="T:RPPP_WebApp.Controllers.KarticaProjektaController">
+            <summary>
+            Kontroler za sve akcije vezane uz kartice projekata.
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.KarticaProjektaController.Index">
+            <summary>
+            Kontroler za sve akcije vezane uz kartice projekata.
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.KarticaProjektaController.PrepareDropDownLists">
+            <summary>
+            Priprema padajući izbornik projekata tako da dohvaća identifikatore i nazive projekata iz baze podataka,
+            te popunjava 'ViewBag.Projekti' s popisom za korištenje u web aplikaciji.
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.KarticaProjektaController.Create">
+            <summary>
+            Prikazuje formu za stvaranje nove kartice.
+            </summary>
+            <returns>Pogled za kreiranje kartice.</returns>
+            <exception cref="T:System.Exception">Baca iznimku ako neuspješno pripremi padajući izbornik.</exception>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.KarticaProjektaController.CreatePost(RPPP_WebApp.Models.KarticaProjektum)">
+            <summary>
+            Post metoda za stvaranje nove kartice projekta.
+            </summary>
+            <param name="kartica">Podaci o kartici projekta koji se dodaje.</param>
+            <returns>
+            Ako su podaci ispravni i uspješno se dodaje kartica, preusmjerava na akciju "Index".
+            Ako se pojavi iznimka, prikazuje se poruka o grešci i vraća na akciju "Create" za ponovno unošenje podataka.
+            </returns>
+            <exception cref="T:System.Exception">Baca iznimku ako se neuspješno dodaje kartica projekta.</exception>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.KarticaProjektaController.Delete(System.Int32)">
+            <summary>
+            Post metoda za brisanje kartice projekta.
+            </summary>
+            <param name="KarticaProjektaId">ID kartice projekta koja se briše.</param>
+            <returns>
+            Ako je brisanje uspješno, preusmjerava na akciju "Index" s porukom o uspješnom brisanju.
+            Ako se pojavi iznimka pri brisanju, preusmjerava na akciju "Index" s porukom o neuspjehu brisanja.
+            </returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.KarticaProjektaController.Edit(System.Int32)">
+            <summary>
+            Prikazuje formu za uređivanje kartice projekta.
+            </summary>
+            <param name="id">ID kartice projekta koja se uređuje.</param>
+            <returns>
+            Ako kartica s traženim ID-om postoji, priprema dropdown liste i prikazuje formu za uređivanje.
+            Ako kartica ne postoji, vraća poruku "Ne postoji kartica s ID-om" i status "NotFound".
+            </returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:RPPP_WebApp.Controllers.KarticaProjektaController.Detail(System.Int32,System.Int32)" -->
+        <member name="M:RPPP_WebApp.Controllers.KarticaProjektaController.Update(System.Int32)">
+            <summary>
+            Post metoda za ažuriranje kartice projekta.
+            </summary>
+            <param name="id">ID kartice projekta koja se ažurira.</param>
+            <returns>
+            Ako su podaci ispravni i uspješno se ažurira kartica, preusmjerava na akciju "Index" s porukom o uspješnom ažuriranju.
+            Ako se pojavi iznimka pri ažuriranju, prikazuje se poruka o neuspjehu ažuriranja i ostaje na formi za uređivanje.
+            Ako kartica ne postoji, vraća poruku "Ne postoji kartica s ID-om" i status "NotFound".
+            </returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.KarticaProjektaController.EditDetail(RPPP_WebApp.Models.KarticaProjektum,System.Int32)">
+            <summary>
+            Post metoda za uređivanje detalja kartice projekta (gornji dio u master-detailu).
+            </summary>
+            <param name="kartica">Podaci o kartici projekta koji se uređuju.</param>
+            <param name="index">Indeks za prikaz prethodne i sljedeće kartice.</param>
+            <returns>
+            Ako su podaci ispravni i uspješno se ažuriraju, vraća parcijalni pogled s ažuriranim podacima kartice.
+            Ako se pojavi iznimka pri ažuriranju, vraća poruku o pogrešci i status "BadRequest".
+            </returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:RPPP_WebApp.Controllers.KarticaProjektaController.SetPreviousAndNext(System.Int32)" -->
+        <member name="T:RPPP_WebApp.Controllers.PosaoController">
+            <summary>
+            Kontroler za upravljanje operacijama vezanim uz poslove.
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.PosaoController.#ctor(RPPP_WebApp.Models.Rppp08Context)">
+            <summary>
+            Konstruktor kontrolera s primarnim kontekstom baze podataka.
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.PosaoController.Index">
+            <summary>
+            Prikazuje popis poslova.
+            </summary>
+            <returns>View s popisom poslova.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.PosaoController.PrepareDropDownLists">
+            <summary>
+            Priprema padajuće popise za dodavanje novog posla.
+            </summary>
+            <returns>Task rezultat.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.PosaoController.Create">
+            <summary>
+            Prikazuje formu za dodavanje novog posla.
+            </summary>
+            <returns>View s formom za dodavanje novog posla.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.PosaoController.CreatePost(RPPP_WebApp.Models.Posao)">
+            <summary>
+            Post metoda za stvaranje novog posla.
+            </summary>
+            <param name="posao">Posao koji se dodaje.</param>
+            <returns>Redirekcija na Index ili View s porukom o grešci.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.PosaoController.AddRow(RPPP_WebApp.Models.Posao,System.Int32)">
+            <summary>
+            Dodaje redak posla u tablicu s dodatnim informacijama o suradnicima.
+            </summary>
+            <param name="posao">Posao koji se dodaje.</param>
+            <param name="SuradnikId">ID suradnika koji je povezan s poslom.</param>
+            <returns>Akcija rezultata koja predstavlja odgovor na zahtjev.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.PosaoController.Delete(System.Int32)">
+            <summary>
+            Briše posao.
+            </summary>
+            <param name="PosaoId">ID posla koji se briše.</param>
+            <returns>Redirekcija na akciju Index.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.PosaoController.QuitAddRow(System.Int32)">
+            <summary>
+            Izlazi iz dodavanja reda posla.
+            </summary>
+            <param name="TransakcijaId">ID transakcije.</param>
+            <returns>Prazan rezultat.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.PosaoController.Edit(System.Int32)">
+            <summary>
+            Prikazuje formu za uređivanje posla.
+            </summary>
+            <param name="id">ID posla koji se uređuje.</param>
+            <returns>View s formom za uređivanje posla.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.PosaoController.Update(System.Int32)">
+            <summary>
+            Post metoda za ažuriranje posla.
+            </summary>
+            <param name="id">ID posla koji se ažurira.</param>
+            <returns>View s formom za uređivanje posla ili redirekcija na Index.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.PosaoController.EditRow(System.Int32)">
+            <summary>
+            Prikazuje formu za uređivanje reda posla.
+            </summary>
+            <param name="id">ID posla čiji se red uređuje.</param>
+            <returns>PartialView s formom za uređivanje reda posla.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.PosaoController.GetAddRow(System.Int32)">
+            <summary>
+            Prikazuje formu za dodavanje reda posla.
+            </summary>
+            <param name="SuradnikId">ID suradnika koji je povezan s poslom.</param>
+            <returns>PartialView s formom za dodavanje reda posla.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.PosaoController.Get(System.Int32)">
+            <summary>
+            Prikazuje informacije o određenom poslu.
+            </summary>
+            <param name="id">ID posla čije se informacije prikazuju.</param>
+            <returns>PartialView s informacijama o poslu.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.PosaoController.EditRow(RPPP_WebApp.Models.Posao)">
+            <summary>
+            Post metoda za ažuriranje reda posla.
+            </summary>
+            <param name="posao">Posao koji se ažurira.</param>
+            <returns>PartialView s informacijama o ažuriranom poslu.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.PosaoController.DeleteDynamic(System.Int32)">
+            <summary>
+            Post metoda za brisanje posla s dinamičkim odzivom.
+            </summary>
+            <param name="PosaoId">ID posla koji se briše.</param>
+            <returns>EmptyResult ili PartialView s informacijama o poslu ovisno o uspješnosti brisanja.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.PosaoController.VrstaPosla(System.String)">
+            <summary>
+            Dohvaća vrste posla prema zadanim kriterijima.
+            </summary>
+            <param name="term">Pojam za pretragu vrsti posla.</param>
+            <returns>Kolekcija ID-Label parova koji predstavljaju vrste posla.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ReportController.KarticeProjektaExcel">
+            <summary>
+            Generira Excel datoteku koja sadrži popis kartica projekta.
+            </summary>
+            <returns>Excel datoteka koja sadrži popis kartica projekta.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ReportController.KarticaProjektaExcel(System.Int32)">
+            <summary>
+            Generira Excel datoteku koja sadrži detalje o kartici projekta i pripadajućim transakcijama.
+            </summary>
+            <param name="id">ID kartice projekta za koju se generira izvješće.</param>
+            <returns>Excel datoteka koja sadrži detalje o kartici projekta i transakcijama.</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:RPPP_WebApp.Controllers.ReportController.CreateReport(System.String)" -->
+        <member name="M:RPPP_WebApp.Controllers.ReportController.Kartica(System.Int32)">
+            <summary>
+            Generira PDF izvješće o kartici projekta i transakcijama.
+            </summary>
+            <param name="id">ID kartice projekta za koju se generira izvješće.</param>
+            <returns>PDF izvješće o kartici projekta i transakcijama.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ReportController.Kartice">
+            <summary>
+            Generira PDF izvješće o svim karticama projekta.
+            </summary>
+            <returns>PDF izvješće o svim karticama projekta.</returns>
+        </member>
+        <member name="T:RPPP_WebApp.Controllers.ReportController.MasterDetailsHeaders">
+            <summary>
+            Implementacija IPageHeader za prikaz glave stranice u PDF izvješću s detaljima o kartici projekta.
+            </summary>
+        </member>
+        <member name="T:RPPP_WebApp.Controllers.SuradnikController">
+            <summary>
+            Kontroler za upravljanje operacijama vezanim uz suradnike.
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.SuradnikController.#ctor(RPPP_WebApp.Models.Rppp08Context)">
+            <summary>
+            Konstruktor kontrolera s primarnim kontekstom baze podataka.
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.SuradnikController.Index">
+            <summary>
+            Prikazuje popis suradnika.
+            </summary>
+            <returns>View s popisom suradnika.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.SuradnikController.PrepareDropDownLists">
+            <summary>
+            Priprema padajuće popise za dodavanje novog suradnika.
+            </summary>
+            <returns>Task rezultat.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.SuradnikController.Create">
+            <summary>
+            Prikazuje formu za dodavanje novog suradnika.
+            </summary>
+            <returns>View s formom za dodavanje novog suradnika.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.SuradnikController.CreatePost(RPPP_WebApp.Models.Suradnik)">
+            <summary>
+            Post metoda za stvaranje novog suradnika.
+            </summary>
+            <param name="suradnik">Suradnik koji se dodaje.</param>
+            <returns>Redirekcija na Index ili View s porukom o grešci.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.SuradnikController.Delete(System.Int32)">
+            <summary>
+            Post metoda za brisanje suradnika.
+            </summary>
+            <param name="SuradnikId">ID suradnika koji se briše.</param>
+            <returns>Redirekcija na Index.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.SuradnikController.Edit(System.Int32)">
+            <summary>
+            Prikazuje formu za uređivanje suradnika.
+            </summary>
+            <param name="id">ID suradnika koji se uređuje.</param>
+            <returns>View s formom za uređivanje suradnika.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.SuradnikController.Detail(System.Int32,System.Int32)">
+            <summary>
+            Prikazuje detalje o određenom suradniku.
+            </summary>
+            <param name="id">ID suradnika čiji se detalji prikazuju.</param>
+            <param name="index">Indeks trenutnog suradnika.</param>
+            <returns>View s detaljima o suradniku.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.SuradnikController.Update(System.Int32)">
+            <summary>
+            Post metoda za ažuriranje suradnika.
+            </summary>
+            <param name="id">ID suradnika koji se ažurira.</param>
+            <returns>Redirekcija na Index ili View s porukom o grešci.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.SuradnikController.EditDetail(RPPP_WebApp.Models.Suradnik,System.Int32)">
+            <summary>
+            Post metoda za ažuriranje detalja suradnika.
+            </summary>
+            <param name="suradnik">Suradnik koji se ažurira.</param>
+            <param name="index">Indeks trenutnog suradnika.</param>
+            <returns>PartialView s ažuriranim detaljima o suradniku.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.SuradnikController.SetPreviousAndNext(System.Int32)">
+            <summary>
+            Postavlja prethodnog i sljedećeg suradnika na temelju trenutnog položaja.
+            </summary>
+            <param name="position">Trenutni položaj suradnika.</param>
+        </member>
+        <member name="T:RPPP_WebApp.Controllers.TransakcijaController">
+            <summary>
+            Kontroler za akcije povezane s entitetom Transakcija.
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.TransakcijaController.PrepareDropDownLists">
+            <summary>
+            Popunjava padajuće liste za odabir kartica i vrsta transakcija.
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.TransakcijaController.Create">
+            <summary>
+            Prikazuje formu za stvaranje nove transakcije.
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.TransakcijaController.CreatePost(RPPP_WebApp.Models.Transakcija)">
+            <summary>
+            Pohranjuje novu transakciju u bazu podataka i preusmjerava na popis transakcija.
+            </summary>
+            <param name="transakcija">Podaci nove transakcije za pohranu.</param>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.TransakcijaController.AddRow(RPPP_WebApp.Models.Transakcija,System.Int32)">
+            <summary>
+            Dodaje novi redak transakcije povezan s određenom karticom projekta.
+            </summary>
+            <param name="transakcija">Podaci nove transakcije za dodavanje.</param>
+            <param name="KarticaProjektaId">ID kartice projekta povezane s transakcijom.</param>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.TransakcijaController.Delete(System.Int32)">
+            <summary>
+            Briše transakciju s određenim ID-om.
+            </summary>
+            <param name="TransakcijaId">ID transakcije koju treba obrisati.</param>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.TransakcijaController.QuitAddRow(System.Int32)">
+            <summary>
+            Odustajanje od dodavanja nove transakcije, rezultat je zatvaranje redka za dodavanje.
+            </summary>
+            <param name="TransakcijaId"></param>
+            <returns>Prazan rezulat koji signalizira "uspješno" brisanje.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.TransakcijaController.DeleteDynamic(System.Int32)">
+            <summary>
+            HTTP DELETE akcija za brisanje transakcije prema njezinoj šifri. Koristi se za dinamičko brisanje retka.
+            </summary>
+            <param name="TransakcijaId">Šifra transakcije koja se briše.</param>
+            <returns>HTTP odgovor koji sadrži informaciju o uspješnosti brisanja.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.TransakcijaController.Edit(System.Int32)">
+            <summary>
+            HTTP GET akcija za prikaz forme za uređivanje transakcije prema njezinoj šifri.
+            </summary>
+            <param name="id">Šifra transakcije koja se uređuje.</param>
+            <returns>
+            Ako je transakcija pronađena, prikazuje se forma za uređivanje s popunjenim podacima.
+            Ako transakcija ne postoji, vraća se HTTP NotFound s odgovarajućom porukom.
+            </returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.TransakcijaController.EditRow(System.Int32)">
+            <summary>
+            HTTP GET akcija za prikaz forme za uređivanje pojedinačne transakcije (redak) prema njezinoj šifri.
+            </summary>
+            <param name="id">Šifra transakcije koja se uređuje.</param>
+            <returns>
+            Ako je transakcija pronađena, prikazuje se forma za uređivanje s popunjenim podacima (koristi se PartialView).
+            Ako transakcija ne postoji, vraća se HTTP NotFound s odgovarajućom porukom.
+            </returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.TransakcijaController.GetAddRow(System.Int32)">
+            <summary>
+            HTTP GET akcija za prikaz forme za dodavanje novog reda transakcije na određenu karticu projekta.
+            </summary>
+            <param name="KarticaProjektaId">Šifra kartice projekta za koju se dodaje transakcija.</param>
+            <returns>
+            Prikazuje formu za dodavanje novog reda transakcije na određenu karticu projekta (koristi se PartialView).
+            </returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.TransakcijaController.Update(System.Int32)">
+            <summary>
+            HTTP POST akcija za ažuriranje postojeće transakcije.
+            </summary>
+            <param name="id">Šifra transakcije koja se ažurira.</param>
+            <returns>
+            Ako je ažuriranje uspješno, preusmjerava na akciju "Index" s porukom o uspješnom ažuriranju.
+            Ako ažuriranje nije uspjelo, prikazuje formu za uređivanje transakcije s odgovarajućim porukama o greškama.
+            </returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.TransakcijaController.EditRow(RPPP_WebApp.Models.Transakcija)">
+            <summary>
+            HTTP POST akcija za ažuriranje podataka o transakciji iz redaka tablice.
+            </summary>
+            <param name="transakcija">Objekt transakcije koji se ažurira.</param>
+            <returns>
+            Ako su podaci o transakciji valjani i uspješno ažurirani, vraća djelomični pogled sa ažuriranim podacima.
+            Ako podaci nisu valjani, vraća djelomični pogled s odgovarajućim porukama o greškama.
+            Ako se dogodi pogreška tijekom ažuriranja u bazi podataka, vraća BadRequest s odgovarajućom porukom.
+            </returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.TransakcijaController.Get(System.Int32)">
+            <summary>
+            HTTP GET akcija za dohvat retka transakcije s određenim ID-om.
+            </summary>
+            <param name="id">ID transakcije koju želite dohvatiti.</param>
+            <returns>
+            Ako transakcija s određenim ID-om postoji, vraća djelomični pogled s detaljima transakcije.
+            Ako transakcija s tim ID-om ne postoji, vraća NotFound rezultat s odgovarajućom porukom o grešci.
+            </returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.TransakcijaController.VrstaTransakcije(System.String)">
+            <summary>
+            HTTP GET akcija za pretragu vrsta transakcija prema unesenom pojmu. Služi za autocomplete.
+            </summary>
+            <param name="term">Pojam za pretragu vrsta transakcija prema nazivu.</param>
+            <returns>
+            IEnumerable objekt koji sadrži listu IdLabel objekata koji predstavljaju vrste transakcija koje odgovaraju unesenom pojmu.
+            Svaki IdLabel objekt sadrži ID i naziv vrste transakcije.
+            Ograničava se na prvih 5 rezultata i sortira ih po nazivu.
+            </returns>
+        </member>
+        <member name="T:RPPP_WebApp.Controllers.ZadatakController">
+            <summary>
+            Kontroler za sve akcije vezane uz zadatke
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZadatakController.#ctor(RPPP_WebApp.Models.Rppp08Context,Microsoft.Extensions.Options.IOptionsSnapshot{RPPP_WebApp.AppSettings},Microsoft.Extensions.Logging.ILogger{RPPP_WebApp.Controllers.ZahtjevController})">
+            <summary>
+            Inicijalizira novu instancu klase <see cref="T:RPPP_WebApp.Controllers.ZadatakController"/>.
+            </summary>
+            <param name="ctx">Kontekst baze podataka.</param>
+            <param name="options">Postavke aplikacije.</param>
+            <param name="logger">Logger za zapisivanje poruka.</param>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZadatakController.Index(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Prikazuje listu Zadataka sa opcijom sortiranja i filtriranja.
+            </summary>
+            <param name="page">Broj stranice.</param>
+            <param name="sort">Opcija sortiranja.</param>
+            <param name="ascending">Redoslijed sortiranja.</param>
+            <returns>Pregled s paginiranom listom Zadataka.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZadatakController.PrepareDropDownList">
+            <summary>
+            Priprema padajuće liste potrebne za stvaranje novog Zadatka.
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZadatakController.Create">
+            <summary>
+            Prikazuje formu za stvaranje novog Zahtjeva.
+            </summary>
+            <returns>View za stvaranje novog Zahtjeva.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZadatakController.Create(RPPP_WebApp.Models.Zadatak)">
+            <summary>
+            Sprema novi Zadatak u bazu podataka.
+            </summary>
+            <param name="zadatak">Podaci o novom Zadatku.</param>
+            <returns>Preusmjerava na pregled svih Zadataka nakon spremanja.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZadatakController.Delete(System.Int32)">
+            <summary>
+            Briše Zadatak iz baze podataka.
+            </summary>
+            <param name="id">Identifikator Zadatka koji treba biti obrisan.</param>
+            <returns>Preusmjerava na pregled svih Zadataka nakon brisanja.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZadatakController.Edit(System.Int32)">
+            <summary>
+            Prikazuje formu za uređivanje Zadatka prema zadatom identifikatoru.
+            </summary>
+            <param name="id">Identifikator Zadatka koji se uređuje.</param>
+            <returns>View za uređivanje Zadatka.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZadatakController.Update(System.Int32)">
+            <summary>
+            Ažurira informacije o Zadatku u bazi podataka.
+            </summary>
+            <param name="id">Identifikator Zadatka koji se ažurira.</param>
+            <returns>Preusmjerava na pregled svih Zadataka nakon ažuriranja.</returns>
+        </member>
+        <member name="T:RPPP_WebApp.Controllers.ZahtjevController">
+            <summary>
+            Kontroler za sve akcije vezane uz zahtjeve (DZ1)
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevController.#ctor(RPPP_WebApp.Models.Rppp08Context,Microsoft.Extensions.Options.IOptionsSnapshot{RPPP_WebApp.AppSettings},Microsoft.Extensions.Logging.ILogger{RPPP_WebApp.Controllers.ZahtjevController})">
+            <summary>
+            Inicijalizira novu instancu klase <see cref="T:RPPP_WebApp.Controllers.ZahtjevController"/>.
+            </summary>
+            <param name="ctx">Kontekst baze podataka.</param>
+            <param name="options">Postavke aplikacije.</param>
+            <param name="logger">Logger za zapisivanje poruka.</param>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevController.Index(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Prikazuje listu Zahtjeva sa opcijom sortiranja i filtriranja.
+            </summary>
+            <param name="page">Broj stranice.</param>
+            <param name="sort">Opcija sortiranja.</param>
+            <param name="ascending">Redoslijed sortiranja.</param>
+            <returns>Pregled s paginiranom listom Zahtjeva.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevController.PrepareDropDownList">
+            <summary>
+            Priprema padajuće liste potrebne za stvaranje novog Zadatka.
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevController.Create">
+            <summary>
+            Prikazuje formu za stvaranje novog Zahtjeva.
+            </summary>
+            <returns>View za stvaranje novog Zahtjeva.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevController.Create(RPPP_WebApp.Models.Zahtjev)">
+            <summary>
+            Sprema novi Zahtjev u bazu podataka.
+            </summary>
+            <param name="zahtjev">Podaci o novom Zahtjevu.</param>
+            <returns>Preusmjerava na pregled svih Zahtjeva nakon spremanja.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevController.Delete(System.Int32)">
+            <summary>
+            Briše Zahtjev iz baze podataka.
+            </summary>
+            <param name="id">Identifikator Zahtjeva koji treba biti obrisan.</param>
+            <returns>Preusmjerava na pregled svih Zahtjeva nakon brisanja.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevController.Edit(System.Int32)">
+            <summary>
+            Prikazuje formu za uređivanje Zahtjeva prema zadatom identifikatoru.
+            </summary>
+            <param name="id">Identifikator Zahtjeva koji se uređuje.</param>
+            <returns>View za uređivanje Zahtjeva.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevController.Update(System.Int32)">
+            <summary>
+            Ažurira informacije o Zahtjevu u bazi podataka.
+            </summary>
+            <param name="id">Identifikator Zahtjeva koji se ažurira.</param>
+            <returns>Preusmjerava na pregled svih Zahtjeva nakon ažuriranja.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevController.Detail(System.Int32)">
+            <summary>
+            Prikazuje detalje o određenom Zahtjevu, uključujući povezane Zadatke i informacije o Statusu Zadatka.
+            </summary>
+            <param name="id">Identifikator Zahtjeva.</param>
+            <returns>View sa detaljima o Zahtjevu.</returns>
+        </member>
+        <member name="T:RPPP_WebApp.Controllers.ZahtjevInfoController">
+            <summary>
+            Kontroler za sve akcije vezane uz zahtjeve (DZ2)
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevInfoController.#ctor(RPPP_WebApp.Models.Rppp08Context,Microsoft.Extensions.Options.IOptionsSnapshot{RPPP_WebApp.AppSettings})">
+            <summary>
+            Inicijalizira novu instancu klase <see cref="T:RPPP_WebApp.Controllers.ZahtjevInfoController"/>.
+            </summary>
+            <param name="ctx">Kontekst baze podataka.</param>
+            <param name="options">Postavke aplikacije.</param>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevInfoController.Index(System.String,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Prikazuje paginiranu listu informacija o Zahtjevima s mogućnošću filtriranja i sortiranja.
+            </summary>
+            <param name="filter">Filter za pretraživanje Zahtjeva.</param>
+            <param name="page">Broj stranice.</param>
+            <param name="sort">Opcija sortiranja.</param>
+            <param name="ascending">Redoslijed sortiranja.</param>
+            <returns>Pregled s paginiranom listom informacija o Zahtjevima.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevInfoController.Filter(RPPP_WebApp.ViewModels.ZahtjevFilter)">
+            <summary>
+            Filtrira Zahtjeve na temelju zadanih kriterija i preusmjerava na akciju Index s primijenjenim filtrima.
+            </summary>
+            <param name="filter">Objekt sa kriterijima za filtriranje.</param>
+            <returns>Preusmjerava na akciju Index s primijenjenim filtrima.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevInfoController.Show(System.Int32,System.Nullable{System.Int32},System.String,System.Int32,System.Int32,System.Boolean,System.String)">
+            <summary>
+            Prikazuje informacije o određenom Zahtjevu, uključujući detalje o povezanim zadacima.
+            </summary>
+            <param name="id">Identifikator Zahtjeva.</param>
+            <param name="position">Pozicija na stranici.</param>
+            <param name="filter">Filter za pretraživanje Zahtjeva.</param>
+            <param name="page">Broj stranice.</param>
+            <param name="sort">Opcija sortiranja.</param>
+            <param name="ascending">Redoslijed sortiranja.</param>
+            <param name="viewName">Naziv pogleda.</param>
+            <returns>View s informacijama o Zahtjevu i povezanim zadacima.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevInfoController.SetPreviousAndNext(System.Int32,System.String,System.Int32,System.Boolean)">
+            <summary>
+            Postavlja informacije o prethodnom i sljedećem Zahtjevu na temelju trenutne pozicije.
+            </summary>
+            <param name="position">Trenutna pozicija.</param>
+            <param name="filter">Filter za pretraživanje Zahtjeva.</param>
+            <param name="sort">Opcija sortiranja.</param>
+            <param name="ascending">Redoslijed sortiranja.</param>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevInfoController.Create">
+            <summary>
+            Prikazuje formu za kreiranje novog Zahtjeva.
+            </summary>
+            <returns>View za kreiranje Zahtjeva.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevInfoController.Create(RPPP_WebApp.ViewModels.ZahtjevInfoViewModel)">
+            <summary>
+            Pohranjuje novi Zahtjev u bazu podataka na temelju podataka iz modela.
+            </summary>
+            <param name="model">Podaci o novom Zahtjevu.</param>
+            <returns>Preusmjerava na akciju Edit za uređivanje novog Zahtjeva ili ponovno prikazuje formu za unos ako neuspješno.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevInfoController.Edit(System.Int32,System.Nullable{System.Int32},System.String,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Prikazuje formu za uređivanje postojećeg Zahtjeva.
+            </summary>
+            <param name="id">ID Zahtjeva koji se uređuje.</param>
+            <param name="position">Pozicija na stranici za paginaciju.</param>
+            <param name="filter">Filter za pretraživanje.</param>
+            <param name="page">Broj stranice za paginaciju.</param>
+            <param name="sort">Sortiranje rezultata.</param>
+            <param name="ascending">Poredak sortiranja.</param>
+            <returns>View za uređivanje Zahtjeva.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevInfoController.Edit(RPPP_WebApp.ViewModels.ZahtjevInfoViewModel,System.Nullable{System.Int32},System.String,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Ažurira podatke o Zahtjevu u bazi podataka na temelju podataka iz modela.
+            </summary>
+            <param name="model">Podaci o Zahtjevu za ažuriranje.</param>
+            <param name="position">Pozicija na stranici za paginaciju.</param>
+            <param name="filter">Filter za pretraživanje.</param>
+            <param name="page">Broj stranice za paginaciju.</param>
+            <param name="sort">Sortiranje rezultata.</param>
+            <param name="ascending">Poredak sortiranja.</param>
+            <returns>Preusmjerava na akciju Edit za uređivanje Zahtjeva ili ponovno prikazuje formu za uređivanje ako neuspješno.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevInfoController.Delete(System.Int32,System.String,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Briše Zahtjev iz baze podataka.
+            </summary>
+            <param name="ZahtjevId">ID Zahtjeva koji se briše.</param>
+            <param name="filter">Filter za pretraživanje.</param>
+            <param name="page">Broj stranice za paginaciju.</param>
+            <param name="sort">Sortiranje rezultata.</param>
+            <param name="ascending">Poredak sortiranja.</param>
+            <returns>Preusmjerava na akciju Index sa zadanim filterom, stranicom, sortiranjem i redoslijedom.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevInfoController.DeleteZadatak(System.Int32)">
+            <summary>
+            Briše Zadatak iz baze podataka.
+            </summary>
+            <param name="id">ID Zadatka koji se briše.</param>
+            <returns>Rezultat akcije koja šalje informacije o izvršenju brisanja klijentskoj strani.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Controllers.ZahtjevInfoController.Get(System.Int32)">
+            <summary>
+            Dohvaća Zadatak iz baze podataka prema ID-u.
+            </summary>
+            <param name="id">ID Zadatka koji se dohvaća.</param>
+            <returns>Parcijalni pogled s podacima o Zadatku ili NotFound ako Zadatak s navedenim ID-om ne postoji.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.Extensions.ExceptionExtensions.CompleteExceptionMessage(System.Exception)">
+            <summary>
+            Vraća sadržaj poruka cijele hijerarhije neke iznimke. Za predanu iznimku provjerava se postoji li unutarnja iznimka.
+            Ako da, poruka unutanje iznimke dodaje se u rezultat te se dalje provjerava postoji li unutarnja iznimka unutarnje iznimke itd...    
+            </summary>
+            <param name="exc">Iznimka čija se kompletna hijerarhija poruka treba ispisati</param>
+            <returns>String formiran od poruka svih unutarnjih iznimki. Poruka svake iznimmke dodana je u novi redak</returns>
+        </member>
+        <member name="T:RPPP_WebApp.Extensions.Selectors.ZadatakSort">
+            <summary>
+            Klasa za sortiranje Zadataka
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.Extensions.Selectors.ZadatakSort.ApplySort(System.Linq.IQueryable{RPPP_WebApp.Models.Zadatak},System.Int32,System.Boolean)">
+            <summary>
+            Metoda za primjenu sortiranja na upitu Zadatka.
+            </summary>
+            <param name="query">Upit koji se sortira.</param>
+            <param name="sort">Broj koji predstavlja vrstu sortiranja.</param>
+            <param name="ascending">True ako je sortiranje uzlazno, inače false.</param>
+            <returns>Sortirani upit Zadatka.</returns>
+        </member>
+        <member name="T:RPPP_WebApp.Extensions.Selectors.ZahtjevInfoSort">
+            <summary>
+            Klasa za sortiranje Zahtjeva
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.Extensions.Selectors.ZahtjevInfoSort.ApplySort(System.Linq.IQueryable{RPPP_WebApp.Models.ViewZahtjevInfo},System.Int32,System.Boolean)">
+            <summary>
+            Metoda za primjenu sortiranja na upitu ViewZahtjevInfo.
+            </summary>
+            <param name="query">Upit koji se sortira.</param>
+            <param name="sort">Broj koji predstavlja vrstu sortiranja.</param>
+            <param name="ascending">True ako je sortiranje uzlazno, inače false.</param>
+            <returns>Sortirani upit ViewZahtjevInfo.</returns>
+        </member>
+        <member name="T:RPPP_WebApp.Extensions.Selectors.ZahtjevSort">
+            <summary>
+            Klasa za sortiranje Zahtjeva.
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.Extensions.Selectors.ZahtjevSort.ApplySort(System.Linq.IQueryable{RPPP_WebApp.Models.Zahtjev},System.Int32,System.Boolean)">
+            <summary>
+            Metoda za primjenu sortiranja na upitu Zahtjeva.
+            </summary>
+            <param name="query">Upit koji se sortira.</param>
+            <param name="sort">Broj koji predstavlja vrstu sortiranja.</param>
+            <param name="ascending">True ako je sortiranje uzlazno, inače false.</param>
+            <returns>Sortirani upit Zahtjeva.</returns>
+        </member>
+        <member name="T:RPPP_WebApp.Models.ViewZahtjevInfo">
+            <summary>
+            Prikaz informacija o zahtjevu.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.ViewZahtjevInfo.ZahtjevId">
+            <summary>
+            Identifikator zahtjeva.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.ViewZahtjevInfo.NazivZahtjeva">
+            <summary>
+            Naziv zahtjeva.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.ViewZahtjevInfo.Prioritet">
+            <summary>
+            Prioritet zahtjeva.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.ViewZahtjevInfo.Oznaka">
+            <summary>
+            Oznaka zahtjeva.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.ViewZahtjevInfo.VrstaZahtjevaId">
+            <summary>
+            Identifikator vrste zahtjeva.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.ViewZahtjevInfo.NazivVrsteZahtjeva">
+            <summary>
+            Naziv vrste zahtjeva.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.ViewZahtjevInfo.ProjektId">
+            <summary>
+            Identifikator projekta.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.ViewZahtjevInfo.NazivProjekta">
+            <summary>
+            Naziv projekta.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.ViewZahtjevInfo.Position">
+            <summary>
+            Položaj.
+            </summary>
+        </member>
+        <member name="T:RPPP_WebApp.Models.ViewZahtjevProjekt">
+            <summary>
+            Prikaz informacija o projektu u kontekstu zahtjeva.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.ViewZahtjevProjekt.ProjektId">
+            <summary>
+            Identifikator projekta.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.ViewZahtjevProjekt.NazivProjekta">
+            <summary>
+            Naziv projekta.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.ViewZahtjevProjekt.KraticaProjekta">
+            <summary>
+            Kratica projekta.
+            </summary>
+        </member>
+        <member name="T:RPPP_WebApp.Models.KarticaProjektum">
+            <summary>
+            Predstavlja model kartice projekta.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.KarticaProjektum.KarticaProjektaId">
+            <summary>
+            Jedinstveni identifikator kartice projekta.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.KarticaProjektum.ProjektId">
+            <summary>
+            ID povezanog projekta.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.KarticaProjektum.StanjeKartice">
+            <summary>
+            Stanje na kartici projekta.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.KarticaProjektum.VirtualniIban">
+            <summary>
+            Virtualni IBAN kartice projekta.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.KarticaProjektum.Projekt">
+            <summary>
+            Povezani projekt za karticu projekta.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.KarticaProjektum.Transakcijas">
+            <summary>
+            Kolekcija transakcija povezanih s karticom projekta.
+            </summary>
+        </member>
+        <member name="T:RPPP_WebApp.Models.Posao">
+            <summary>
+            Klasa koja predstavlja entitet Posao.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Posao.PosaoId">
+            <summary>
+            Jedinstveni identifikator posla.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Posao.Opis">
+            <summary>
+            Opis posla. Obavezno polje.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Posao.ProjektId">
+            <summary>
+            Identifikator povezanog projekta. Mora biti veći od 0.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Posao.VrstaPoslaId">
+            <summary>
+            Identifikator vrste posla. Mora biti veći od 0.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Posao.Projekt">
+            <summary>
+            Povezani projekt.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Posao.VrstaPosla">
+            <summary>
+            Vrsta posla.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Posao.Suradniks">
+            <summary>
+            Kolekcija suradnika koji su uključeni u ovaj posao.
+            </summary>
+        </member>
+        <member name="T:RPPP_WebApp.Models.Suradnik">
+            <summary>
+            Klasa koja predstavlja entitet Suradnik.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Suradnik.SuradnikId">
+            <summary>
+            Jedinstveni identifikator suradnika.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Suradnik.Ime">
+            <summary>
+            Ime suradnika. Obavezno polje.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Suradnik.Prezime">
+            <summary>
+            Prezime suradnika. Obavezno polje.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Suradnik.Email">
+            <summary>
+            Email suradnika. Mora biti u ispravnom formatu.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Suradnik.BrojMobitela">
+            <summary>
+            Broj mobitela suradnika. Obavezno polje.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Suradnik.SuradnikProjekts">
+            <summary>
+            Kolekcija veza između suradnika i projekata.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Suradnik.ZadatakSuradniks">
+            <summary>
+            Kolekcija veza između suradnika i zadataka.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Suradnik.Posaos">
+            <summary>
+            Kolekcija poslova na kojima suradnik sudjeluje.
+            </summary>
+        </member>
+        <member name="T:RPPP_WebApp.Models.Transakcija">
+            <summary>
+            Predstavlja model transakcije.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Transakcija.TransakcijaId">
+            <summary>
+            Jedinstveni identifikator transakcije.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Transakcija.DatumTransakcije">
+            <summary>
+            Datum transakcije.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Transakcija.Iznos">
+            <summary>
+            Iznos transakcije.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Transakcija.SubjektIban">
+            <summary>
+            IBAN subjekta transakcije.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Transakcija.PrimateljIban">
+            <summary>
+            IBAN primatelja transakcije.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Transakcija.Opis">
+            <summary>
+            Opis transakcije.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Transakcija.KarticaProjektaId">
+            <summary>
+            ID povezane kartice projekta.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Transakcija.VrstaTransakcijeId">
+            <summary>
+            ID povezane vrste transakcije.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Transakcija.KarticaProjekta">
+            <summary>
+            Povezana kartica projekta za transakciju.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Transakcija.VrstaTransakcije">
+            <summary>
+            Povezana vrsta transakcije za transakciju.
+            </summary>
+        </member>
+        <member name="T:RPPP_WebApp.Models.VrstaZahtjeva">
+            <summary>
+            Klasa koja predstavlja model VrstaZahtjeva.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.VrstaZahtjeva.VrstaZahtjevaId">
+            <summary>
+            Identifikator vrste zahtjeva.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.VrstaZahtjeva.NazivVrsteZahtjeva">
+            <summary>
+            Naziv vrste zahtjeva.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.VrstaZahtjeva.Zahtjevs">
+            <summary>
+            Popis zahtjeva povezanih s ovom vrstom zahtjeva.
+            </summary>
+        </member>
+        <member name="T:RPPP_WebApp.Models.Zadatak">
+            <summary>
+            Klasa koja predstavlja model Zadatak.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Zadatak.ZadatakId">
+            <summary>
+            Identifikator zadatka.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Zadatak.Opis">
+            <summary>
+            Opis zadatka (obavezno polje).
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Zadatak.StatusZadatkaId">
+            <summary>
+            Identifikator statusa zadatka (obavezno polje).
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Zadatak.ZahtjevId">
+            <summary>
+            Identifikator zahtjeva (opcionalno polje).
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Zadatak.StatusZadatka">
+            <summary>
+            Status zadatka povezan s ovim zadatkom.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Zadatak.ZadatakSuradniks">
+            <summary>
+            Popis suradnika povezanih s ovim zadatkom.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Zadatak.Zahtjev">
+            <summary>
+            Zahtjev povezan s ovim zadatkom (opcionalno).
+            </summary>
+        </member>
+        <member name="T:RPPP_WebApp.Models.Zahtjev">
+            <summary>
+            Klasa koja predstavlja model Zahtjev.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Zahtjev.ZahtjevId">
+            <summary>
+            Identifikator zahtjeva.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Zahtjev.VrstaZahtjevaId">
+            <summary>
+            Identifikator vrste zahtjeva (obavezno polje).
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Zahtjev.ProjektId">
+            <summary>
+            Identifikator projekta (obavezno polje).
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Zahtjev.NazivZahtjeva">
+            <summary>
+            Naziv zahtjeva (obavezno polje).
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Zahtjev.Prioritet">
+            <summary>
+            Prioritet zahtjeva (obavezno polje).
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Zahtjev.Oznaka">
+            <summary>
+            Oznaka zahtjeva (obavezno polje).
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Zahtjev.Projekt">
+            <summary>
+            Projekat povezan s ovim zahtjevom.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Zahtjev.VrstaZahtjeva">
+            <summary>
+            Vrsta zahtjeva povezana s ovim zahtjevom.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.Models.Zahtjev.Zadataks">
+            <summary>
+            Popis zadataka povezanih s ovim zahtjevom.
+            </summary>
+        </member>
+        <member name="T:RPPP_WebApp.TagHelpers.PagerTagHelper">
+            <summary>
+            Tag helper za kreiranje vlastitih poveznica na stranice u rezultatu nekog upravljača
+            Upotrebljava se kao atribut HTML oznake *pager* koju mijenja u div
+            <example>
+            Primjer upotrebe
+            ```
+            <pager page-info="@Model.PagingInfo" page-action="Index" page-title="Unesite željenu stranicu" class="float-end">
+            </pager>
+            ```
+            U datoteku *_ViewImports.cshtml* potrebno dodati `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`  
+            te u pogled uključiti vlastitu javascript datoteku *gotopage.js*
+            </example>
+            </summary>  
+        </member>
+        <member name="P:RPPP_WebApp.TagHelpers.PagerTagHelper.PageInfo">
+            <summary>
+            Serijalizirani string koji sadrži informacije o trenutnoj i ukupnom broju stranicu 
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.TagHelpers.PagerTagHelper.PageFilter">
+            <summary>
+            Serijalizirani string kojim se prenose informacije o aktivnom filtriranju podataka
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.TagHelpers.PagerTagHelper.PageAction">
+            <summary>
+            Akcija na koju poveznica treba voditi
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.TagHelpers.PagerTagHelper.PageTitle">
+            <summary>
+            Tekst za tooltip za trenutni broj stranice i unos ciljane stranice
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.TagHelpers.PagerTagHelper.BuildListItemForPage(System.Int32)">
+            <summary>
+            Stvara oznaku za i-tu stranicu koristeći *i* kao sadržaj poveznice
+            <seealso cref="M:RPPP_WebApp.TagHelpers.PagerTagHelper.BuildListItemForPage(System.Int32,System.String)"/>
+            </summary>
+            <param name="i">broj stranice</param>
+            <returns>TagBuilder s pripremljenom poveznicom</returns>
+        </member>
+        <member name="M:RPPP_WebApp.TagHelpers.PagerTagHelper.BuildListItemForPage(System.Int32,System.String)">
+            <summary>
+             Stvara oznaku za i-tu stranicu koristeći argument text kao sadržaj poveznice
+            </summary>
+            <param name="i">broj stranice</param>
+            <param name="text">tekst poveznice</param>
+            <returns>TagBuilder s pripremljenom poveznicom</returns>
+        </member>
+        <member name="M:RPPP_WebApp.TagHelpers.PagerTagHelper.BuildListItemForCurrentPage(System.Int32)">
+            <summary>
+            Stvara polje za prikaz trenutne stranice i unos željene stranice
+            </summary>
+            <param name="page">Broj trenutne stranice</param>
+            <returns></returns>
+        </member>
+        <member name="T:RPPP_WebApp.ViewModels.ZadatakViewModel">
+            <summary>
+            Prikaz informacija o zadatku.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.ViewModels.ZadatakViewModel.ZadatakId">
+            <summary>
+            Identifikator zadatka.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.ViewModels.ZadatakViewModel.Opis">
+            <summary>
+            Opis zadatka.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.ViewModels.ZadatakViewModel.StatusZadatka">
+            <summary>
+            Status zadatka.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.ViewModels.ZadatakViewModel.OznakaZahtjeva">
+            <summary>
+            Oznaka zahtjeva.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.ViewModels.ZadatakViewModel.StatusZadatkaId">
+            <summary>
+            Identifikator statusa zadatka.
+            </summary>
+        </member>
+        <member name="T:RPPP_WebApp.ViewModels.ZadatciViewModel">
+            <summary>
+            Prikaz zadatka.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.ViewModels.ZadatciViewModel.Zadatci">
+            <summary>
+            Kolekcija zadatka.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.ViewModels.ZadatciViewModel.PagingInfo">
+            <summary>
+            Informacije o straničenju.
+            </summary>
+        </member>
+        <member name="T:RPPP_WebApp.ViewModels.ZahtjevFilter">
+            <summary>
+            Filtriranje zahtjeva.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.ViewModels.ZahtjevFilter.ProjektId">
+            <summary>
+            ID projekta.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.ViewModels.ZahtjevFilter.VrstaZahtjevaId">
+            <summary>
+            ID vrste zahtjeva.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.ViewModels.ZahtjevFilter.NazivProjekta">
+            <summary>
+            Naziv projekta.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.ViewModels.ZahtjevFilter.NazivVrsteZahtjeva">
+            <summary>
+            Naziv vrste zahtjeva.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.ViewModels.ZahtjevFilter.Oznaka">
+            <summary>
+            Oznaka zahtjeva.
+            </summary>
+        </member>
+        <member name="P:RPPP_WebApp.ViewModels.ZahtjevFilter.Prioritet">
+            <summary>
+            Prioritet zahtjeva.
+            </summary>
+        </member>
+        <member name="M:RPPP_WebApp.ViewModels.ZahtjevFilter.IsEmpty">
+            <summary>
+            Provjerava je li filter prazan.
+            </summary>
+            <returns>True ako je filter prazan, inače false.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.ViewModels.ZahtjevFilter.ToString">
+            <summary>
+            Pretvara filter u string reprezentaciju.
+            </summary>
+            <returns>String reprezentacija filtera.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.ViewModels.ZahtjevFilter.FromString(System.String)">
+            <summary>
+            Stvara instancu filtera iz string reprezentacije.
+            </summary>
+            <param name="s">String reprezentacija filtera.</param>
+            <returns>Instanca <see cref="T:RPPP_WebApp.ViewModels.ZahtjevFilter"/> filtera.</returns>
+        </member>
+        <member name="M:RPPP_WebApp.ViewModels.ZahtjevFilter.Apply(System.Linq.IQueryable{RPPP_WebApp.Models.ViewZahtjevInfo})">
+            <summary>
+            Primjenjuje filter na upit.
+            </summary>
+            <param name="query">Upit za filtriranje.</param>
+            <returns>Filtrirani upit.</returns>
+        </member>
+        <member name="T:RPPP_WebApp.ViewModels.ZahtjeviInfoViewModel">
+            <summary>
+            ViewModel for displaying a list of ViewZahtjevInfo objects along with paging information and a filter.
+            </summary>
+        </member>
+        <member name="T:RPPP_WebApp.ViewModels.ZahtjevInfoViewModel">
+            <summary>
+            ViewModel for displaying detailed information about a Zahtjev, including associated Zadatci.
+            </summary>
+        </member>
+        <member name="T:RPPP_WebApp.ViewModels.ZahtjeviViewModel">
+            <summary>
+            ViewModel for displaying a list of Zahtjevs along with paging information.
+            </summary>
+        </member>
+        <member name="T:RPPP_WebApp.ViewModels.ZahtjevViewModel">
+            <summary>
+            ViewModel for displaying information about a Zahtjev.
+            </summary>
+        </member>
+    </members>
+</doc>

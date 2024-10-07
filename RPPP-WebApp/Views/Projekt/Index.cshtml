@@ -1,0 +1,109 @@
+﻿@model RPPP_WebApp.ViewModels.PDViewModel
+
+
+<h2 class="my-3">Projekt</h2>
+
+<a class = "btn btn-primary mb-3" asp-controller="Projekt" asp-action="Create">Dodaj Novi</a>
+<table class="table table-striped" id = "tablica">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Naziv projekta</th>
+            <th scope="col">Opis projekta</th>
+            <th scope="col">Vrsta projekta</th>
+            <th scope="col">Planirani početak</th>
+            <th scope="col">Stvarni početak</th>
+            <th scope="col">Planirani završetak</th>
+            <th scope="col">Stvarni završetak</th>
+            <th scope="col">Dokumentacija</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var projekt in Model.ProjektData) {
+            <tr>
+                <th scope="row">@projekt.ProjektId</th>
+
+                <td>
+                    @projekt.NazivProjekta
+                </td>
+
+                <td>
+                    @projekt.OpisProjekta
+                </td>
+                <td>
+                    @{
+                        var vrsta = Model.VrstaProjektaData;
+                        foreach (var v in vrsta)
+                        {
+                            if (v.VrstaProjektaId == projekt.VrstaProjektaId)
+                            {
+                                @v.NazivVrsteProjekta
+                                break;
+                            }
+
+                        }
+
+                    }
+                </td>
+                <td> @projekt.PlaniraniPocetak </td>
+                <td>@projekt.StvarniPocetak </td>
+                <td>
+                    @projekt.PlaniraniZavrsetak
+                </td>
+                <td>
+                    @projekt.StvarniZavrsetak
+                </td>
+                <td>
+                    @{
+                        int i = 1;
+                        var doc = Model.DokumentacijaData;
+                        var dokumentacijaList = doc.Where(d => d.ProjektId == projekt.ProjektId).ToList();
+                        foreach (var dokumentacija in dokumentacijaList)
+                        {
+                            @dokumentacija.NazivDokumentacije
+                            if (i < projekt.Dokumentacijas.Count())
+                            {
+                                Write(", ");
+                            }
+                            i++;
+                        }
+
+                    }
+                </td>
+                <td>
+                   
+                    <a asp-controller="Projekt" asp-action="Details"
+                       asp-route-id="@projekt.ProjektId"
+                       class="btn btn-secondary" title="Detalji"
+                       value="@projekt.ProjektId"> Detalji </a>
+                    <a asp-controller="Projekt"  asp-action="Edit"
+                       asp-route-id="@projekt.ProjektId"
+                        class="btn btn-primary" title="Uredi"
+                        value="@projekt.ProjektId"> Uredi </a>
+
+                    <form asp-controller="Projekt" asp-action="Delete" asp-route-id="@projekt.ProjektId" method="post" style="display: inline-block;">
+                            <input type="hidden" name="ProjektId"
+                               value="@projekt.ProjektId" />
+                            <button type="submit" title="Obriši" class="delete btn btn-danger">Izbriši</button>
+                    </form>
+                </td>
+            </tr>
+                     
+            
+        }
+    </tbody>
+</table>
+
+@section styles{
+<link rel="stylesheet"
+href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"/>
+}
+@section scripts{
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script>
+$(document).ready(function(){
+$('#tablica').DataTable();
+});
+</script>
+}

@@ -1,0 +1,116 @@
+﻿@model ZahtjeviViewModel
+
+@{
+	ViewData["Title"] = "Zahtjev";
+}
+
+<h2>Popis zahtjeva</h2>
+
+<a asp-action="Create">Unos novog zahtjeva</a>
+
+<table class="table table-sm table-striped table-hover" id="tableZahtjevi">
+	<thead>
+		<tr>
+			<th>
+				<a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+					Oznaka
+				</a>
+			</th>
+			<th>
+				<a asp-route-sort="2" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 2 ? !Model.PagingInfo.Ascending : true)">
+					Tekst zahtjeva
+				</a>
+			</th>
+			<th>
+				<a asp-route-sort="3" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 3 ? !Model.PagingInfo.Ascending : true)">
+					Vrsta zahtjeva
+				</a>
+			</th>
+			<th>
+				<a asp-route-sort="4" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 4 ? !Model.PagingInfo.Ascending : true)">
+					Projekt
+				</a>
+			</th>
+			<th>
+				<a asp-route-sort="5" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 5 ? !Model.PagingInfo.Ascending : true)">
+					Prioritet
+				</a>
+			</th>
+			<th>
+				<a asp-route-sort="6" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 6 ? !Model.PagingInfo.Ascending : true)">
+					Zadatci
+				</a>
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach(var zahtjev in Model.Zahtjevi)
+		{
+			<tr>
+				<td class="text-left">@zahtjev.Oznaka</td>
+				<td class="text-left">@zahtjev.NazivZahtjeva</td>
+				<td class="text-left">@zahtjev.NazivVrsteZahtjeva</td>
+				<td class="text-left">@zahtjev.NazivProjekta</td>
+				<td class="text-left">@zahtjev.Prioritet</td>
+				<td class="text-left">
+					@{
+						int i = 1;
+						foreach (var zadatak in @zahtjev.Zadatci)
+						{
+							@zadatak.Opis
+							if(i < zahtjev.Zadatci.Count())
+							{
+								Write(", ");	
+							}
+							i++;
+						}
+
+					}
+				</td>
+				<td class="btn-group">
+					
+					<a asp-action="Detail"
+						asp-route-id="@zahtjev.ZahtjevId"
+						asp-route-page="@Model.PagingInfo.CurrentPage"
+						asp-route-sort="@Model.PagingInfo.Sort"
+						asp-route-ascending="@Model.PagingInfo.Ascending"
+						class="btn btn-secondary mt-1" title="Detalji">Detalji</a>
+					
+					<a asp-action="Edit"
+						asp-route-id="@zahtjev.ZahtjevId"
+						asp-route-page="@Model.PagingInfo.CurrentPage"
+						asp-route-sort="@Model.PagingInfo.Sort"
+						asp-route-ascending="@Model.PagingInfo.Ascending"
+						class="btn btn-sm" title="Ažuriraj">Uredi</a>
+
+					<form asp-action="Delete" method="post"
+						asp-route-page="@Model.PagingInfo.CurrentPage"
+						asp-route-sort="@Model.PagingInfo.Sort"
+						asp-route-ascending="@Model.PagingInfo.Ascending">
+					<input type="hidden" name="ZahtjevId" value="@zahtjev.ZahtjevId" />
+					<button type="submit" class="btn btn-sm btn-danger delete" title="Obriši">Obriši</button>
+					</form>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+
+@section styles{
+	<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"/>
+}
+@section scripts{
+	<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#tableZahtjevi').DataTable({
+				"pageLength": 3, // Set the number of rows per page here
+				// Other DataTable options and configurations can be added here
+			});
+		});
+
+	</script>
+}

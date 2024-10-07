@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+
+  <title>@ViewData["Title"] - RPPP Homework</title>
+  <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" asp-append-version="true" />
+  <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  @RenderSection("styles", required: false)
+  
+</head>
+<body>
+  <partial name="_Nav" />
+  <partial name="HandleMessage" />
+  <div class="container body-container">
+		@RenderBody()
+  </div>
+
+  <script>
+	window.applicationBaseUrl = '@Url.Content("~/")';
+  </script>
+
+  <script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>
+  <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+  <script src="~/js/site.js" asp-append-version="true"></script>
+  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"
+  asp-append-version="true"></script>
+  <script>
+  toastr.options = {
+  positionClass: "toast-bottom-right"
+  };
+  </script>
+
+ <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js" integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY=" crossorigin="anonymous"></script>
+  @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,73 @@
+﻿@model RPPP_WebApp.ViewModels.DokumentacijaViewModel
+
+<h2 class="my-3">Dokumentacija</h2>
+
+<a class = "btn btn-primary mb-3" asp-controller="Dokumentacija" asp-action="Create">Dodaj Novi</a>
+<table class="table table-striped" id = "tablica">
+    <thead>
+        <tr>
+            <th scope="col">DokumentacijaId</th>
+            <th scope="col">Naziv dokumentacije</th>
+            <th scope="col">ProjektId</th>
+            <th scope="col">Vrsta Dokumentacije</th>
+            <th scope = "col"></th>
+        </tr>
+    </thead>
+    <tbody>
+  
+        @foreach (var projekt in Model.DokumentacijaData) {
+            <tr>
+
+                <td> @projekt.DokumentacijaId </td>
+                <td>@projekt.NazivDokumentacije </td>
+                <td>
+                    @projekt.ProjektId
+                </td>
+                <td>
+                    @{
+                        var vrsta = Model.VrstaData;
+                        foreach (var v in vrsta)
+                        {
+                            if (v.VrstaDokumentacijeId == projekt.VrstaDokumentacijeId)
+                            {
+                                @v.NazivVrsteDokumentacije
+                                break;
+                            }
+                           
+                        }
+                        
+                    }
+                </td>
+
+                <td>
+                    <a asp-action="Edit"
+                       asp-route-id="@projekt.DokumentacijaId"
+                        class="btn btn-primary" title="Uredi">Uredi</a>
+
+                    <form asp-action="Delete" asp-route-id="@projekt.DokumentacijaId" method="post" style="display: inline-block;">
+                            <input type="hidden" name="Doc"
+                               value="@projekt.ProjektId" />
+                            <button type="submit" title="Obriši" class="delete btn btn-danger"> Izbriši </button>
+                    </form>
+                </td>
+            </tr>
+          
+    
+           
+            
+        }
+    </tbody>
+</table>
+
+@section styles{
+<link rel="stylesheet"
+href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"/>
+}
+@section scripts{
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script>
+$(document).ready(function(){
+$('#tablica').DataTable();
+});
+</script>
+}

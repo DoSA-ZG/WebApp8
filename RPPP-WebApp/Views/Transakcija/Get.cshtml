@@ -1,0 +1,30 @@
+@model RPPP_WebApp.Models.Transakcija
+
+<tr hx-target="this" hx-swap="outerHTML">
+                <th scope="row">@Model.TransakcijaId </th>
+                
+                <td> @Model.SubjektIban </td>
+                <td>@Model.PrimateljIban </td>
+                <td>
+                    @Model.Iznos
+                </td>
+                <td>
+                    @Model.DatumTransakcije
+                </td>
+                <td>
+                    @Model.Opis
+                </td>
+                <td>
+                     @Model.VrstaTransakcije?.NazivVrste 
+                </td>
+                <td>
+                   
+                    
+                   <a hx-get = '@Url.Action("EditRow", "Transakcija", new {id = Model.TransakcijaId})'
+                        class="btn btn-primary mt-1" title="Ažuriraj" style="background-color: #0d6efd !important;" onclick="dodajAutocomplete()"> Ažuriraj </a>
+
+                            <button  hx-confirm="Obrisati transakciju?" 
+                                 hx-delete='@Url.Action("DeleteDynamic", "Transakcija", new { TransakcijaId = Model.TransakcijaId })' title="Obriši" class="btn btn-danger mt-1" style="background-color: #dc3545 !important;"> Izbriši </button>
+                 
+                </td>
+            </tr>

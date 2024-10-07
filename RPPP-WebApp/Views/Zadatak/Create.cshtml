@@ -1,0 +1,52 @@
+﻿@model Zadatak
+
+@{
+	ViewData["Title"] = "Zadatak";
+}
+
+<h3 class="my-3">Dodaj novi zadatak</h3>
+<form asp-action="Create" method="post">
+
+	<div asp-validation-summary="ModelOnly"></div>
+
+	<div class="form-group">
+		<label asp-for="Opis">Opis zadatka</label>
+		<div>
+			<span asp-validation-for="Opis" class="text-danger"></span>
+		</div>
+		<input asp-for="Opis" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="StatusZadatkaId">Status zadatka</label>
+		<div>
+			<span asp-validation-for="StatusZadatkaId" class="text-danger"></span>
+		</div>
+		<select asp-for="StatusZadatkaId" asp-items="ViewBag.StatusZadatka" class="form-control">
+			<option value="0" selected>Odaberite vrstu zahtjeva</option>
+		</select>
+	</div>
+
+
+	<div class="form-group">
+		<label asp-for="ZahtjevId">Oznaka zahtjeva</label>
+		<div>
+			<span asp-validation-for="ZahtjevId" class="text-danger"></span>
+		</div>
+		<select asp-for="ZahtjevId" asp-items="ViewBag.Zahtjevi" class="form-control">
+			<option value="0" selected>Odaberite oznaku zahtjeva</option>
+		</select>
+	</div>
+
+	<div class="text-center">
+		<button class="btn btn-primary" type="submit">Dodaj</button>
+		<a asp-action="Index" class="btn btn-default">Odustani</a>
+	</div>
+
+</form>
+
+@*
+@section scripts{
+	<partial name="IncludeValidation" />
+}
+*@

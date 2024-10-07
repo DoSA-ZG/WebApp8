@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ZadatakViewModel>
+
+<table class="table table-striped" id="table-zadatci">
+    <thead>
+        <tr>
+            @{
+                string[] nazivi = { "Status zadatka", "Opis" };
+                for (int i = 0; i < nazivi.Length; i++)
+                {
+                            <th class="text-center">
+                        @nazivi[i]                        
+                            </th>
+                }
+            }
+            <th></th>           
+        </tr>
+    </thead>
+    <tbody> 
+        
+        @foreach (var zadatak in Model)
+        {           
+               <tr hx-target="this" hx-swap="outerHTML">
+                    <td class="text-left col-sm-4">
+                        <input type="hidden" name="Zadatak.Index" value="@zadatak.StatusZadatkaId"/>
+                        <input type="hidden" name="Zadatak[@zadatak.StatusZadatkaId].ZadatakId" value="@zadatak.ZadatakId" />
+                        <input type="hidden" name="Zadatak[@zadatak.StatusZadatkaId].StatusZadatkaId" value="@zadatak.StatusZadatkaId" />
+                        <input type="hidden" name="Zadatak[@zadatak.StatusZadatkaId].StatusZadatka" value="@zadatak.StatusZadatka" />
+                        
+                    @zadatak.StatusZadatka
+                    </td>       
+                    <td class="text-right col-sm-2">
+                        <input type="hidden" name="Zadatak[@zadatak.StatusZadatkaId].Opis" value="@zadatak.Opis" />
+
+                    @zadatak.Opis
+                    </td>
+                    <td>
+                        @*
+                      <button class="btn btn-sm btn-danger"
+                        hx-confirm="Obrisati mjesto?"
+                        hx-delete="@Url.Action(nameof(ZahtjevInfoController.DeleteZadatak), new { id = zadatak.ZadatakId })"
+                        title="Obriši">
+                              Izbriši
+                      </button>
+                        *@
+                      <button class="btn btn-sm btn-danger deleterow" title="Izbaci">Izbaci</button>
+
+                    </td>               
+                </tr>
+        }        
+
+            <tr>
+            <td>
+                <input id="zadatak-StatusZadatkaId" type="hidden" data-autocomplete-placeholder="StatusZadatka" readonly="readonly" />
+                <input id="zadatak-StatusZadatka" type="text" data-autocomplete="StatusZadatka" />       
+            </td>
+            <td>
+                <input id="zadatak-opis" type="text" />
+            </td>
+            <td class="text-left" colspan="3">
+                <button id="zadatak-dodaj" class="btn btn-sm btn-secondary" title="Dodaj">Dodaj</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

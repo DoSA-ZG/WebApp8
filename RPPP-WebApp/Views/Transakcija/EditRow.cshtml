@@ -1,0 +1,66 @@
+@model RPPP_WebApp.Models.Transakcija
+
+<tr hx-target="this" hx-swap="outerHTML">
+                  
+                    <th scope="row">@Model.TransakcijaId
+                    
+                     </th>
+                
+                <td> 
+                 <div><span asp-validation-for="SubjektIban" class =" text-danger"></span></div>
+                    <input asp-for="SubjektIban" class="form-control" />
+                </td>
+                <td>
+                    <div><span asp-validation-for="PrimateljIban" class =" text-danger"></span></div>
+                    <input asp-for="PrimateljIban" class="form-control" /> </td>
+                <td>
+                    <div><span asp-validation-for="Iznos" class =" text-danger"></span></div>
+                    <input asp-for="Iznos" class="form-control" /> </td>
+                </td>
+                <td>
+                      <div><span asp-validation-for="DatumTransakcije" class =" text-danger"></span></div>
+                    <input asp-for="DatumTransakcije" class="form-control" /> </td>
+                </td>
+                <td>
+                                        <input asp-for="Opis" class="form-control" /> </td>
+
+                </td>
+               
+                <td>
+                    
+                    <div><span asp-validation-for="VrstaTransakcijeId" class="text-danger"></span></div>
+                    @* <select asp-for="VrstaTransakcijeId" asp-items="ViewBag.VrsteTransakcije" class="form-control mt-2">
+                        <option value="0" selected>Odaberite vrstu transakcije</option>
+                    </select> *@
+
+                    <span asp-validation-for="VrstaTransakcijeId" class="text-danger"></span>
+                 <input class="form-control" 
+                 value = "@Model.VrstaTransakcije.NazivVrste"
+                data-autocomplete="vrstaTransakcije"
+                data-controller = "Transakcija"
+                data-autocomplete-placeholder-name="vrstatransakcije"/>
+
+                <input type="hidden" asp-for="VrstaTransakcijeId"
+                value = "@Model.VrstaTransakcijeId"
+                data-autocomplete-placeholder="vrstatransakcije" />
+
+
+                </td>
+                <td>
+                   <input type="hidden" asp-for="TransakcijaId" />
+                    <input type="hidden" asp-for="KarticaProjektaId" />
+                   <button
+                         hx-include="closest tr"
+                         hx-post='@Url.Action("EditRow", "Transakcija")'
+                        class="btn btn-success mt-1" title="Spremi"  onclick="dodajAutocomplete()"
+                        style="background-color: #198754 !important;"> Spremi </button>
+
+                   
+
+        
+                     <button 
+                     style="background-color: rgb(187, 23, 23), 25, 25) !important;"
+                         hx-get='@Url.Action("Get", "Transakcija", new {id = Model.TransakcijaId})' title="Odustani" class="btn btn-secondary mt-1"> Odustani </button>
+                 
+                </td>
+            </tr>

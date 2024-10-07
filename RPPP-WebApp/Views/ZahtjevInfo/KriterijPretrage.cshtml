@@ -1,0 +1,32 @@
+﻿@model ZahtjevFilter
+
+<form id="filterform" asp-action="Filter" method="post">
+
+    
+    <div class="form-group row">
+        <label asp-for="VrstaZahtjevaId" class="col-sm-2 col-form-label">Vrsta zahtjeva</label>
+        <div class="col-sm-2">         
+            <input asp-for="VrstaZahtjevaId" readonly="readonly" class="form-control" data-autocomplete-placeholder="VrstaZahtjeva" />
+        </div>
+        <div class="col-sm-6">
+            <input asp-for="NazivVrsteZahtjeva" class="form-control" data-autocomplete="VrstaZahtjeva" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="ProjektId" class="col-sm-2 col-form-label">Naziv projekta</label>
+        <div class="col-sm-2">         
+          <input asp-for="ProjektId" readonly="readonly" class="form-control" data-autocomplete-placeholder="projekt" />
+        </div>
+        <div class="col-sm-6">
+          <input asp-for="NazivProjekta" class="form-control" data-autocomplete="projekt" />
+        </div>               
+        <div class="col-sm-1 text-nowrap">
+            <button type="submit" class="btn btn-sm btn-primary" title="Postavi filter">Filtriraj</button>           
+
+            <a class="btn btn-sm btn-primary" asp-action="Index" title="Ukloni filter">
+                Ukloni filter
+            </a>
+        </div>
+    </div
+</form>

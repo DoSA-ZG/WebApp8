@@ -1,0 +1,82 @@
+﻿@model ZahtjevInfoViewModel
+
+@{
+	ViewData["Title"] = "Unos novog zahtjeva";
+}
+
+<h2>Unos novog zahtjeva</h2>
+
+<div class="container">
+
+	<form asp-action="Create" method="post" id="zahtjev_form">
+		<div asp-validation-summary="All" class="form-group row"></div>
+
+        <div class="form-group row">
+            <label asp-for="Oznaka">Oznaka</label>
+            <div>
+                <span asp-validation-for="Oznaka" class="text-danger"></span>
+            </div>
+            <input asp-for="Oznaka" class="form-control" />
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="NazivZahtjeva">Naziv zahtjeva</label>
+            <div>
+                <span asp-validation-for="NazivZahtjeva" class="text-danger"></span>
+            </div>
+            <input asp-for="NazivZahtjeva" class="form-control" />
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="VrstaZahtjevaId" class="col-sm-2 col-form-label">Vrsta zahtjeva</label>
+            <div class="col-sm-2">         
+                <input asp-for="VrstaZahtjevaId" readonly="readonly" class="form-control" data-autocomplete-placeholder="VrstaZahtjeva" />
+            </div>
+            <div class="col-sm-6">
+                <input asp-for="NazivVrsteZahtjeva" class="form-control" data-autocomplete="VrstaZahtjeva" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="ProjektId" class="col-sm-2 col-form-label">Projekt</label>
+            <div class="col-sm-2">         
+                <input asp-for="ProjektId" readonly="readonly" class="form-control" data-autocomplete-placeholder="projekt" />
+            </div>
+            <div class="col-sm-6">
+                <input asp-for="NazivProjekta" class="form-control" data-autocomplete="projekt" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="Prioritet">Prioritet</label>
+            <div>
+                <span asp-validation-for="Prioritet" class="text-danger"></span>
+            </div>
+            <input asp-for="Prioritet" class="form-control" placeholder="(visoki / srednji / niski)"/>
+        </div>
+
+        <div class="col-sm-2">
+            <button id="save" type="submit" class="btn btn-sm btn-primary save" title="Spremi">Spremi</button>
+            <a class="btn btn-sm btn-primary cancel" asp-action="Index" title="Odustani">
+            Odustani
+            </a>
+        </div>
+
+        <div class="col-sm-10">
+          <partial name="Zadatci" model="Model.Zadatci" />
+        </div>
+	</form>
+</div>
+
+<partial name="NoviZadatakTemplate" />
+
+@section styles{
+    <link rel="stylesheet" href="~/lib/jqueryui/themes/base/jquery-ui.css" />
+}
+
+@section scripts{
+    <script src="~/js/pager.js" asp-append-version="true"></script>
+    <script src="~/lib/jqueryui/jquery-ui.js"></script>
+    <script src="~/js/autocomplete.js" asp-append-version="true"></script>
+    <script src="~/js/zahtjevi.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,70 @@
+@model RPPP_WebApp.Models.Transakcija
+
+
+<tr hx-target="this" hx-swap="outerHTML">
+                  
+                    <td>
+                    
+                     </td>
+                
+                <td> 
+                 <div><span asp-validation-for="SubjektIban" class =" text-danger"></span></div>
+                    <input asp-for="SubjektIban" class="form-control" />
+                </td>
+                <td>
+                    <div><span asp-validation-for="PrimateljIban" class =" text-danger"></span></div>
+                    <input asp-for="PrimateljIban" class="form-control" /> </td>
+                <td>
+                    <div><span asp-validation-for="Iznos" class =" text-danger"></span></div>
+                    <input asp-for="Iznos" class="form-control" /> </td>
+                </td>
+                <td>
+                      <div><span asp-validation-for="DatumTransakcije" class =" text-danger"></span></div>
+                    <input asp-for="DatumTransakcije" class="form-control" /> </td>
+                </td>
+                <td>
+                    <span asp-validation-for="Opis" class =" text-danger"></span>
+                     <input asp-for="Opis" class="form-control mb-2" /> </td>
+                </td>
+               
+                <td>
+                    
+                    <div>
+                        
+                       <div><span asp-validation-for="VrstaTransakcijeId" class="text-danger"></span></div>
+                 <input class="form-control" 
+                value="@(ViewBag.NazivVrsteTransakcije != null ? ViewBag.NazivVrsteTransakcije : string.Empty)"
+                data-autocomplete="vrstaTransakcije"
+                data-controller = "Transakcija"
+                data-autocomplete-placeholder-name="vrstatransakcije"/>
+
+                <input type="hidden" asp-for="VrstaTransakcijeId"
+                
+                data-autocomplete-placeholder="vrstatransakcije" />
+
+                </div>
+
+                </td>
+                <td>
+
+                <input type="hidden" id = "karticaProjektaIdInput" asp-for="KarticaProjektaId" value = "@ViewBag.KarticaProjektaId" />
+
+                   <button hx-include="closest tr" 
+                        hx-post='@Url.Action("AddRow", "Transakcija", new {KarticaProjektaId = ViewBag.KarticaProjektaId})'
+                        class="btn btn-success mt-1 ms-2" 
+                        title="Spremi"
+                        style="background-color: #198754 !important;"
+                        onclick="dodajAutocomplete()">
+                    Dodaj +
+                </button>
+
+
+                   <button
+                       
+                        hx-delete='@Url.Action("QuitAddRow", "Transakcija")'
+                        class="btn btn-secondary mt-1" title="Spremi"
+                        style="background-color: #636363 !important;"> Odustani </button>
+
+                </td>
+            </tr>
+

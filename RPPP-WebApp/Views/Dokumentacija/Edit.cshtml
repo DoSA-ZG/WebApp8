@@ -1,0 +1,45 @@
+﻿@model RPPP_WebApp.Models.Dokumentacija
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+<h2 class="my-3">Ažuriraj Dokumentaciju</h2>
+
+<form asp-action="Edit" method="post">
+
+    <div class="form-group">
+        <label asp-for="DokumentacijaId"></label>
+        <div>
+            <input asp-for="DokumentacijaId" type="hidden" />
+               @Model.DokumentacijaId
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NazivDokumentacije"></label>
+        <div>
+            <input asp-for="NazivDokumentacije" class="form-control" />
+            <span asp-validation-for="NazivDokumentacije" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProjektId"></label>
+        <div>
+            <input asp-for="ProjektId" class="form-control" />
+            <span asp-validation-for="ProjektId" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="VrstaDokumentacije"></label>
+        <div>
+            @Html.DropDownListFor(model => model.VrstaDokumentacijeId, new SelectList(ViewBag.VrsteDokumentacije, "VrstaDokumentacijeId", "NazivVrsteDokumentacije"), "Odaberite vrstu dokumentacije", new { @class = "form-control" })
+            <span asp-validation-for="VrstaDokumentacijeId" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Spremi promjene</button>
+        <a asp-action="Index" class="btn btn-default">Odustani</a>
+    </div>
+
+</form>

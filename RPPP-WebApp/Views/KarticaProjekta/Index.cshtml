@@ -1,0 +1,66 @@
+@model List<RPPP_WebApp.Models.KarticaProjektum>
+
+@{
+    ViewData["Title"] = "Kartice Projekta";
+}
+
+<h2 class="my-3">Kartice Projekata</h2>
+
+<a class="btn btn-primary mb-3" asp-action="Create">Dodaj Novu</a>
+<a class="btn btn-secondary mb-3" asp-action="Kartice" asp-controller="Report">Skini PDF</a>
+<a class="btn btn-secondary mb-3" asp-action="KarticeProjektaExcel" asp-controller="Report">Skini Excel</a>
+<table class="table table-striped" id="tableKartice">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Virtualni IBAN</th>
+            <th scope="col">Stanje</th>
+            <th scope="col">Transakcije</th>
+            <th scope="col">Projekt</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++) {
+            var kartica = Model[i];
+            <tr>
+                <th scope="row">@kartica.KarticaProjektaId</th>
+                
+                <td>@kartica.VirtualniIban</td>
+                <td>@kartica.StanjeKartice€</td>
+                <td>
+                    @string.Join(", ", kartica.Transakcijas?.Select(t => t.Opis))
+                </td>
+                <td>
+                    @kartica.Projekt?.NazivProjekta
+                </td>
+                <td>
+                    <a asp-action="Detail"
+                       asp-route-id="@kartica.KarticaProjektaId"
+                       asp-route-index="@i"
+                       class="btn btn-secondary mt-1" title="Detalji"> Detalji </a>
+                    <a asp-action="Edit"
+                       asp-route-id="@kartica.KarticaProjektaId"
+                       class="btn btn-primary mt-1" title="Ažuriraj"> Ažuriraj </a>
+
+                    <form asp-action="Delete" method="post" style="display: inline-block;">
+                        <input type="hidden" name="KarticaProjektaId" value="@kartica.KarticaProjektaId" />
+                        <button type="submit" title="Obriši" class="delete btn btn-danger mt-1"> Izbriši </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section styles{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"/>
+}
+@section scripts{
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#tableKartice').DataTable();
+        });
+    </script>
+}

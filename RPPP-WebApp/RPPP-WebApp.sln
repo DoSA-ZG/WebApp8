@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPPP-WebApp", "RPPP-WebApp.csproj", "{4E4DF19F-2360-44F5-A476-112DE3D4DD4A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E4DF19F-2360-44F5-A476-112DE3D4DD4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E4DF19F-2360-44F5-A476-112DE3D4DD4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E4DF19F-2360-44F5-A476-112DE3D4DD4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E4DF19F-2360-44F5-A476-112DE3D4DD4A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CEF1E0F7-0313-4FC6-A305-C1FA66B9CABF}
+	EndGlobalSection
+EndGlobal

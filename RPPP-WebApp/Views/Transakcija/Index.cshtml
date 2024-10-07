@@ -1,0 +1,79 @@
+@model IEnumerable<RPPP_WebApp.Models.Transakcija> 
+
+@{
+    ViewData["Title"] = "Transakcije";
+}
+
+<h2 class="my-3">Transakcije Projekata</h2>
+
+<a class = "btn btn-primary mb-3" asp-controller="Transakcija" asp-action="Create">Dodaj Novu</a>
+<table class="table table-striped" id = "tableTransakcije">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Subjektov IBAN</th>
+            <th scope="col">Primateljov IBAN</th>
+            <th scope="col">Iznos</th>
+            <th scope="col">Datum i vrijeme</th>
+             <th scope="col">Opis</th>
+             <th scope="col">Kartica</th>
+             <th scope="col">Vrsta</th>
+            <th scope = "col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var transakcija in Model) {
+            <tr>
+                <th scope="row">@transakcija.TransakcijaId </th>
+                
+                <td> @transakcija.SubjektIban </td>
+                <td>@transakcija.PrimateljIban </td>
+                <td>
+                    @transakcija.Iznos
+                </td>
+                <td>
+                    @transakcija.DatumTransakcije
+                </td>
+                <td>
+                    @transakcija.Opis
+                </td>
+                <td>
+                    @transakcija.KarticaProjekta?.VirtualniIban 
+                </td>
+                <td>
+                     @transakcija.VrstaTransakcije?.NazivVrste 
+                </td>
+                <td>
+                   
+                    
+                   <a asp-action="Edit"
+                        asp-route-id="@transakcija.TransakcijaId"
+                        class="btn btn-primary mt-1" title="Ažuriraj"> Ažuriraj </a>
+
+                    <form asp-action="Delete" method="post" style="display: inline-block;">
+                            <input type="hidden" name="TransakcijaId"
+                            value="@transakcija.TransakcijaId" />
+                            <button type="submit" title="Obriši" class="delete btn btn-danger mt-1"> Izbriši </button>
+                    </form> 
+                </td>
+            </tr>
+          
+    
+           
+            
+        }
+    </tbody>
+</table>
+
+@section styles{
+<link rel="stylesheet"
+href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"/>
+}
+@section scripts{
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script>
+$(document).ready(function(){
+$('#tableTransakcije').DataTable();
+});
+</script>
+}

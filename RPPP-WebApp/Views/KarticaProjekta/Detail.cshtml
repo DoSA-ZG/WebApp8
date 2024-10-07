@@ -1,0 +1,180 @@
+@model RPPP_WebApp.Models.KarticaProjektum
+
+
+
+
+<div hx-target="this" hx-swap="outerHTML">
+    <h2 class="my-3">Detalji Kartice Projekta 
+         <form asp-action="Delete" method="post" asp-route-id="@Model.KarticaProjektaId">
+                        <input type="hidden" name="KarticaProjektaId" value="@Model.KarticaProjektaId" />
+                        <button class = "btn btn-danger mb-3 ms-2" style="float:right" type="submit">Obriši</button>
+                    </form>
+        
+    <a 
+        hx-include="closest div"
+        hx-post='@Url.Action("EditDetail", "KarticaProjekta", new {index = ViewBag.index})'
+        class = "btn btn-success mb-3 " style="float:right" >Spremi</a>
+    <a 
+       asp-controller="Report"
+        asp-action="Kartica" 
+        asp-route-id="@Model.KarticaProjektaId"
+        class = "btn btn-primary mb-3 me-2 " style="float:right" >PDF</a>
+    <a 
+       asp-controller="Report"
+        asp-action="KarticaProjektaExcel" 
+        asp-route-id="@Model.KarticaProjektaId"
+        class = "btn btn-primary mb-3 me-2 " style="float:right" >Excel</a></h2>
+
+    <div style="display:flex">
+        @if (ViewBag.Previous != null) {
+            <a class = "btn btn-primary mb-3 me-2" asp-action="Detail" asp-route-id = "@ViewBag.Previous" asp-route-index = "@(ViewBag.Index - 1)"> Prethodna</a>
+        }
+        @if (ViewBag.Next != null) {
+            <a class = "btn btn-primary mb-3 " asp-action="Detail" asp-route-id="@ViewBag.Next" asp-route-index = "@(ViewBag.Index + 1)">Sljedeća  </a>
+        }
+    </div> 
+
+    <div class ="form-group">
+        <label asp-for = "VirtualniIban"></label>
+        <div><span asp-validation-for="VirtualniIban" class =" text-danger"></span></div>
+        <input  asp-for="VirtualniIban" class="form-control" />
+    </div>
+    <div class ="form-group mt-2">
+        <label asp-for = "StanjeKartice"></label>
+        <div><span asp-validation-for="StanjeKartice" class =" text-danger"></span></div>
+        <input  asp-for="StanjeKartice" class="form-control" />
+    </div>
+
+    <div class ="form-group mt-2">
+        @* <label asp-for = "ProjektId"></label>
+        <div><span asp-validation-for="ProjektId" class="text-danger"></span></div>
+        <select  asp-for="ProjektId" asp-items="ViewBag.Projekti" class="form-control mt-2">
+            <option value="0" selected>Odaberite projekt</option>
+        </select> *@
+
+        <label asp-for = "ProjektId"></label>
+        <input class="form-control" 
+            data-autocomplete="projekt"
+            data-controller = "Projekt"
+            data-autocomplete-placeholder-name="nazivprojekta"
+            value="@Model.Projekt.NazivProjekta" />
+            <input type="hidden" asp-for="ProjektId"
+            data-autocomplete-placeholder="nazivprojekta" />
+    </div>
+
+     <input type="hidden" asp-for="KarticaProjektaId" />
+      
+
+</div>
+
+<hr>
+
+<h2 class="my-3">Transakcije</h2>
+
+<table class="table table-striped" id = "tableTransakcije">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Subjektov IBAN</th>
+            <th scope="col">Primateljov IBAN</th>
+            <th scope="col">Iznos</th>
+            <th scope="col">Datum i vrijeme</th>
+             <th scope="col">Opis</th>
+           
+             <th scope="col">Vrsta</th>
+             <th scope = "col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var transakcija in Model.Transakcijas) {
+            
+            Html.RenderPartial("~/Views/Transakcija/Get.cshtml", transakcija);
+
+            
+        }
+    </tbody>
+    <tfoot></tfoot>
+        
+
+</table>
+
+
+<a hx-get='@Url.Action("GetAddRow", "Transakcija", new {KarticaProjektaId = Model.KarticaProjektaId})' class = "btn btn-primary"  hx-target="#tableTransakcije tbody"
+                        hx-swap="afterend" hx-swap="outerHTML" id = "dodajTransakcijuGumb" onclick="dodajAutocomplete()">
+    Nova Transakcija +
+</a>
+
+@section styles{
+<link rel="stylesheet"
+href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"/>
+<link rel="stylesheet"
+href="~/lib/jqueryui/jquery-ui.css" />
+}
+@section scripts{
+      <script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>
+
+    <script>
+ window.applicationBaseUrl = '@Url.Content("~/")';
+ </script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="~/lib/jqueryui/jquery-ui.js"></script>
+<script src="~/js/autocomplete.js"></script>
+
+<script>
+    localStorage.setItem('KarticaProjektaId', '@ViewBag.KarticaProjektaId')
+     
+
+$(document).ready(function(){
+$('#tableTransakcije').DataTable();
+});
+</script>
+
+<script>
+ document.body.addEventListener("showMessage", function(evt){
+ toastr[evt.detail.messageType](evt.detail.message);
+ })
+ document.body.addEventListener("htmx:responseError",
+function (evt) {
+ toastr["error"](evt.detail.error);
+ })
+ </script>
+
+
+ <script>
+    function dodajAutocomplete() {
+        setTimeout(function() {
+            $("[data-autocomplete]").each(function(index, element) {
+                var action = $(element).data('autocomplete');
+                var controller = $(element).data('controller');
+                var resultplaceholder = $(element).data('autocomplete-placeholder-name');
+                if (resultplaceholder === undefined)
+                    resultplaceholder = action;
+
+                $(element).change(function() {
+                    var dest = $(`[data-autocomplete-placeholder='${resultplaceholder}']`);
+                    var text = $(element).val();
+                    if (text.length === 0 || text !== $(dest).data('selected-label')) {
+                        $(dest).val('');
+                    }
+                });
+
+                $(element).autocomplete({
+                    source: window.applicationBaseUrl + controller + "/" + action,
+                    autoFocus: true,
+                    minLength: 1,
+                    select: function(event, ui) {
+                        $(element).val(ui.item.label);
+                        var dest = $(`[data-autocomplete-placeholder='${resultplaceholder}']`);
+                        $(dest).val(ui.item.id);
+                        $(dest).data('selected-label', ui.item.label);
+                    }
+                });
+            });
+        }, 1000);
+        } // Delay of 1 second
+  
+</script>
+
+
+}
+

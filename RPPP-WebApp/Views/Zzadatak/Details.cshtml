@@ -1,0 +1,55 @@
+﻿@model RPPP_WebApp.Models.Zadatak
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Detalji zadatka</h2>
+
+<div class="text-center">
+    <a asp-controller="ZReport" asp-action="ZadatakMaster" asp-route-id="@Model.ZadatakId" class="btn btn-primary">Export Zadatak to Excel</a>
+</div>
+
+<div class="form-group">
+    <div class="form-text">Opis: </div> <div class="form-control">@Model.Opis</div>
+    <div class="form-text">Status zadatka: </div> <div class="form-control">@Model.StatusZadatka.NazivStatusaZadatka</div>
+    <div class="form-text">Zahtjev: </div> <div class="form-control">@Model.Zahtjev.NazivZahtjeva</div>
+</div>
+
+<hr />
+<h2>Suradnici na zadatku</h2>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id suradnika</th>
+                <th>Ime</th>
+                <th>Prezime</th>
+                <th>Email</th>
+                <th>Broj mobitela</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var zadatakSuradnik in Model.ZadatakSuradniks)
+            {
+                <tr>
+                    <td>@zadatakSuradnik.Suradnik.SuradnikId</td>
+                    <td>@zadatakSuradnik.Suradnik.Ime</td>
+                    <td>@zadatakSuradnik.Suradnik.Prezime</td>
+                    <td>@zadatakSuradnik.Suradnik.Email</td>
+                    <td>@zadatakSuradnik.Suradnik.BrojMobitela</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <table class="table">
+        <thead>
+        </thead>
+    </table>
+</div>
+
+<div>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Back to List</a>
+</div>
+

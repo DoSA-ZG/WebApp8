@@ -1,0 +1,20 @@
+﻿@if(TempData[Constants.Message] != null)
+{
+	bool error = false;
+	var obj = TempData[Constants.ErrorOccurred];
+	if(obj != null){
+		error = (bool)obj;
+	}
+	if (error)
+	{
+		<div class="alert alert-success col-6 mx-auto mt-3" role="alert">
+			'@TempData[Constants.Message]', 'Pogreška'
+		</div>
+	}
+	else
+	{
+		<div class="alert alert-success col-6 mx-auto mt-3" role="alert">
+			'@TempData[Constants.Message]'
+		</div>
+	}
+}

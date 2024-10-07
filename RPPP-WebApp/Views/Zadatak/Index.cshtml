@@ -1,0 +1,86 @@
+﻿@model ZadatciViewModel
+
+@{
+	ViewData["Title"] = "Zadatak";
+}
+
+<h2>Popis zadataka</h2>
+
+<a asp-action="Create">Unos novog zadatka</a>
+
+<table class="table table-sm table-striped table-hover" id="tableZadatci">
+	<thead>
+		<tr>
+			<th>
+				<a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+					ZadatakId
+				</a>
+			</th>
+			<th>
+				<a asp-route-sort="2" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 2 ? !Model.PagingInfo.Ascending : true)">
+					Opis
+				</a>
+			</th>
+			<th>
+				<a asp-route-sort="3" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 3 ? !Model.PagingInfo.Ascending : true)">
+					Status zadatka
+				</a>
+			</th>
+			<th>
+				<a asp-route-sort="4" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 4 ? !Model.PagingInfo.Ascending : true)">
+					Oznaka zahtjeva
+				</a>
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var zadatak in Model.Zadatci)
+		{
+				<tr>
+					<td class="text-left">@zadatak.ZadatakId</td>
+					<td class="text-left">@zadatak.Opis</td>
+					<td class="text-left">@zadatak.StatusZadatka</td>
+					<td class="text-left">@zadatak.OznakaZahtjeva</td>
+					<td class="btn-group">
+					  <a asp-action="Edit"
+							asp-route-id="@zadatak.ZadatakId"
+							asp-route-page="@Model.PagingInfo.CurrentPage"
+							asp-route-sort="@Model.PagingInfo.Sort"
+							asp-route-ascending="@Model.PagingInfo.Ascending"
+						 class="btn btn-sm" title="Ažuriraj">Uredi</a>
+
+					  <form asp-action="Delete" method="post"
+					  		asp-route-id="@zadatak.ZadatakId"
+							asp-route-page="@Model.PagingInfo.CurrentPage"
+							asp-route-sort="@Model.PagingInfo.Sort"
+							asp-route-ascending="@Model.PagingInfo.Ascending">
+						<input type="hidden" name="ZadatakId" value="@zadatak.ZadatakId" />
+						<button type="submit" class="btn btn-sm btn-danger delete" title="Obriši">Obriši</button>
+					  </form>
+					</td>
+				</tr>
+		}
+	</tbody>
+</table>
+
+
+
+@section styles{
+		<link rel="stylesheet"
+		href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"/>
+}
+@section scripts{
+		<script src="~/js/pager.js" asp-append-version="true"></script>
+		<script src="~/lib/htmx/htmx.min.js" asp-append-version="true"></script> 
+		<partial name="IncludeValidation" />
+		<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('#tableZadatci').DataTable({
+					"pageLength": 3, // Set the number of rows per page here
+					// Other DataTable options and configurations can be added here
+				});
+			});
+		</script>
+}

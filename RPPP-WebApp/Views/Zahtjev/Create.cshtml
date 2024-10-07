@@ -1,0 +1,68 @@
+﻿@model Zahtjev
+
+@{
+	ViewData["Title"] = "Zahtjev";
+}
+
+<h3 class="my-3">Dodaj novi zahtjev</h3>
+<form asp-action="Create" method="post">
+
+	<div asp-validation-summary="ModelOnly"></div>
+
+	<div class="form-group">
+		<label asp-for="Oznaka">Oznaka</label>
+		<div>
+			<span asp-validation-for="Oznaka" class="text-danger"></span>
+		</div>
+		<input asp-for="Oznaka" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="NazivZahtjeva">Naziv zahtjeva</label>
+		<div>
+			<span asp-validation-for="NazivZahtjeva" class="text-danger"></span>
+		</div>
+		<input asp-for="NazivZahtjeva" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="VrstaZahtjevaId">Vrsta zahtjeva</label>
+		<div>
+			<span asp-validation-for="VrstaZahtjevaId" class="text-danger"></span>
+		</div>
+		<select asp-for="VrstaZahtjevaId" asp-items="ViewBag.VrsteZahtjeva" class="form-control">
+			<option value="0" selected>Odaberite vrstu zahtjeva</option>
+		</select>
+	</div>
+
+
+	<div class="form-group">
+		<label asp-for="ProjektId">Projekt</label>
+		<div>
+			<span asp-validation-for="ProjektId" class="text-danger"></span>
+		</div>
+		<select asp-for="ProjektId" asp-items="ViewBag.Projekti" class="form-control">
+			<option value="0" selected>Odaberite projekt</option>
+		</select>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Prioritet">Prioritet</label>
+		<div>
+			<span asp-validation-for="Prioritet" class="text-danger"></span>
+		</div>
+		<input asp-for="Prioritet" class="form-control" placeholder="(visoki / srednji / niski)"/>
+	</div>
+
+	<div class="text-center">
+		<button class="btn btn-primary" type="submit">Dodaj</button>
+		<a asp-action="Index" class="btn btn-default">Odustani</a>
+	</div>
+	
+</form>
+
+@*
+@section scripts{
+	<partial name="IncludeValidation" />
+}
+*@

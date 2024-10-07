@@ -1,0 +1,43 @@
+﻿@model RPPP_WebApp.Models.Zadatak
+
+@{
+	ViewBag.Title = "Novi zadatak";
+}
+
+<h2>Unos novog zadatka</h2>
+
+<form asp-action="CreateP" method="post">
+	<div asp-validation-summary="All"></div>
+
+	<div class="mb-3">
+		<label asp-for="Opis" class="form-label"></label>
+		<input asp-for="Opis" class="form-control" />
+		<div class="form-text">
+			<span asp-validation-for="Opis" class="text-danger"></span>
+		</div>
+	</div>
+	<div class="mb-3">
+		<label asp-for="StatusZadatkaId" class="form-label">Status zadatka</label>
+		<select class="form-select" asp-for="StatusZadatkaId" asp-items="ViewBag.Statusi"></select>
+		<div class="form-text">
+			<span asp-validation-for="StatusZadatkaId" class="text-danger"></span>
+		</div>
+	</div>
+	<div class="mb-3">
+		<label asp-for="ZahtjevId" class="form-label"></label>
+		<select class="form-select" asp-for="ZahtjevId" asp-items="ViewBag.Zahtjevi"></select>
+		<div class="form-text">
+			<span asp-validation-for="ZahtjevId" class="text-danger"></span>
+		</div>
+	</div>
+	<div class="text-center">
+		<button class="btn btn-primary" type="submit">Dodaj</button>
+		<a asp-action="Index" class="btn btn-secondary">Odustani</a>
+	</div>
+</form>
+
+
+
+@section scripts {
+	<partial name="IncludeValidation" />
+}

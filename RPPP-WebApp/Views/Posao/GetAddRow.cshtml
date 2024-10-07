@@ -1,0 +1,44 @@
+﻿@model RPPP_WebApp.Models.Posao
+
+
+<tr hx-target="this" hx-swap="outerHTML">
+
+    <td>
+    </td>
+
+    <td>
+        <div><span asp-validation-for="Opis" class=" text-danger"></span></div>
+        <input asp-for="Opis" class="form-control" />
+    </td>
+    <td>
+        <div><span asp-validation-for="Projekt" class=" text-danger"></span></div>
+        <input asp-for="Projekt" class="form-control" />
+    </td>
+    <td>
+        <div><span asp-validation-for="VrstaPosla" class=" text-danger"></span></div>
+        <input asp-for="VrstaPosla" class="form-control" />
+    </td>
+    </td>
+    <td>
+
+        <input type="hidden" id="suradnikIdInput" asp-for="Suradniks" value="@ViewBag.SuradnikId" />
+
+        <button hx-include="closest tr"
+                hx-post='@Url.Action("AddRow", "Transakcija", new {KarticaProjektaId = ViewBag.KarticaProjektaId})'
+                class="btn btn-success mt-1 ms-2"
+                title="Spremi"
+                style="background-color: #198754 !important;"
+                onclick="dodajAutocomplete()">
+            Dodaj +
+        </button>
+
+
+        <button hx-delete='@Url.Action("QuitAddRow", "Transakcija")'
+                class="btn btn-secondary mt-1" title="Spremi"
+                style="background-color: #636363 !important;">
+            Odustani
+        </button>
+
+    </td>
+</tr>
+
